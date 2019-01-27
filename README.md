@@ -1,4 +1,17 @@
-# ioBroker.siegenia
+<h1>
+    <img src="admin/siegenia.png" width="64"/>
+    ioBroker.siegenia
+</h1>
+
+[![NPM version](http://img.shields.io/npm/v/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
+[![Dependency Status](https://img.shields.io/david/Apollon77/iobroker.siegenia.svg)](https://david-dm.org/Apollon77/iobroker.siegenia)
+[![Known Vulnerabilities](https://snyk.io/test/github/Apollon77/ioBroker.siegenia/badge.svg)](https://snyk.io/test/github/Apollon77/ioBroker.siegenia)
+
+[![NPM](https://nodei.co/npm/iobroker.siegenia.png?downloads=true)](https://nodei.co/npm/iobroker.siegenia/)
+
+**Tests:** Linux/Mac: [![Travis-CI](http://img.shields.io/travis/Apollon77/ioBroker.siegenia/master.svg)](https://travis-ci.org/Apollon77/ioBroker.siegenia)
+Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/Apollon77/ioBroker.siegenia?branch=master&svg=true)](https://ci.appveyor.com/project/Apollon77/ioBroker-siegenia/)
 
 ioBroker support for Siegenia Devices
 

@@ -1,113 +1,154 @@
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
+'use strict';
+
+/*
+ * Created with @iobroker/create-adapter v1.8.0
+ */
+
 const utils = require('@iobroker/adapter-core');
+const ObjectHelper = require('@apollon/iobroker-tools'); // Get common adapter utils
 
-// Load your modules here, e.g.:
-// const fs = require("fs");
+class Siegenia extends utils.Adapter {
 
-// Create the adapter and define its methods
-const adapter = utils.adapter({
-    name: 'siegenia',
+    /**
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
+    constructor(options) {
+        super({
+            ...options,
+            name: 'siegenia',
+        });
+        this.on('ready', this.onReady);
+        this.on('objectChange', this.onObjectChange);
+        this.on('stateChange', this.onStateChange);
+        // this.on("message", this.onMessage);
+        this.on('unload', this.onUnload);
+        this.objectHelper = ObjectHelper.objectHelper;
+        this.objectHelper.init(this);
+    }
 
-    // The ready callback is called when databases are connected and adapter received configuration.
-    // start here!
-    ready: main, // Main method defined below for readability
+    /**
+     * Is called when databases are connected and adapter received configuration.
+     */
+    async onReady() {
+        // Initialize your adapter here
 
-    // is called when adapter shuts down - callback has to be called under any circumstances!
-    unload: (callback) => {
+        // The adapters config (in the instance object everything under the attribute "native") is accessible via
+        // this.config:
+        this.log.info('config test1: ' + this.config.option1);
+        this.log.info('config test1: ' + this.config.option2);
+
+        /*
+        For every state in the system there has to be also an object of type state
+        Here a simple template for a boolean variable named "testVariable"
+        Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
+        */
+        await this.setObjectAsync('testVariable', {
+            type: 'state',
+            common: {
+                name: 'testVariable',
+                type: 'boolean',
+                role: 'indicator',
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
+
+        // in this template all states changes inside the adapters namespace are subscribed
+        this.subscribeStates('*');
+
+        /*
+        setState examples
+        you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
+        */
+        // the variable testVariable is set to true as command (ack=false)
+        await this.setStateAsync('testVariable', true);
+
+        // same thing, but the value is flagged "ack"
+        // ack should be always set to true if the value is received from or acknowledged from the target system
+        await this.setStateAsync('testVariable', { val: true, ack: true });
+
+        // same thing, but the state is deleted after 30s (getState will return null afterwards)
+        await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+
+        // examples for the checkPassword/checkGroup functions
+        let result = await this.checkPasswordAsync('admin', 'iobroker');
+        this.log.info('check user admin pw ioboker: ' + result);
+
+        result = await this.checkGroupAsync('admin', 'admin');
+        this.log.info('check group user admin group admin: ' + result);
+    }
+
+    /**
+     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * @param {() => void} callback
+     */
+    onUnload(callback) {
         try {
-            adapter.log.info('cleaned everything up...');
+            this.log.info('cleaned everything up...');
             callback();
         } catch (e) {
             callback();
         }
-    },
+    }
 
-    // is called if a subscribed object changes
-    objectChange: (id, obj) => {
+    /**
+     * Is called if a subscribed object changes
+     * @param {string} id
+     * @param {ioBroker.Object | null | undefined} obj
+     */
+    onObjectChange(id, obj) {
         if (obj) {
             // The object was changed
-            adapter.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
+            this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
         } else {
             // The object was deleted
-            adapter.log.info(`object ${id} deleted`);
+            this.log.info(`object ${id} deleted`);
         }
-    },
+    }
 
-    // is called if a subscribed state changes
-    stateChange: (id, state) => {
+    /**
+     * Is called if a subscribed state changes
+     * @param {string} id
+     * @param {ioBroker.State | null | undefined} state
+     */
+    onStateChange(id, state) {
         if (state) {
             // The state was changed
-            adapter.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            this.objectHelper.handleStateChange(id, state);
         } else {
             // The state was deleted
-            adapter.log.info(`state ${id} deleted`);
+            this.log.info(`state ${id} deleted`);
         }
-    },
+    }
 
-    // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-    // requires "common.message" property to be set to true in io-package.json
-    // message: (obj) => {
+    // /**
+    //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+    //  * Using this method requires "common.message" property to be set to true in io-package.json
+    //  * @param {ioBroker.Message} obj
+    //  */
+    // onMessage(obj) {
     // 	if (typeof obj === "object" && obj.message) {
     // 		if (obj.command === "send") {
     // 			// e.g. send email or pushover or whatever
-    // 			adapter.log.info("send command");
+    // 			this.log.info("send command");
 
     // 			// Send response in callback if required
-    // 			if (obj.callback) adapter.sendTo(obj.from, obj.command, "Message received", obj.callback);
+    // 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
     // 		}
     // 	}
-    // },
-});
+    // }
 
-function main() {
+}
 
-    // The adapters config (in the instance object everything under the attribute "native") is accessible via
-    // adapter.config:
-    adapter.log.info('config test1: ' + adapter.config.option1);
-    adapter.log.info('config test1: ' + adapter.config.option2);
-
-    /*
-        For every state in the system there has to be also an object of type state
-        Here a simple template for a boolean variable named "testVariable"
-        Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-    */
-    adapter.setObject('testVariable', {
-        type: 'state',
-        common: {
-            name: 'testVariable',
-            type: 'boolean',
-            role: 'indicator',
-            read: true,
-            write: true,
-        },
-        native: {},
-    });
-
-    // in this template all states changes inside the adapters namespace are subscribed
-    adapter.subscribeStates('*');
-
-    /*
-        setState examples
-        you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-    */
-    // the variable testVariable is set to true as command (ack=false)
-    adapter.setState('testVariable', true);
-
-    // same thing, but the value is flagged "ack"
-    // ack should be always set to true if the value is received from or acknowledged from the target system
-    adapter.setState('testVariable', { val: true, ack: true });
-
-    // same thing, but the state is deleted after 30s (getState will return null afterwards)
-    adapter.setState('testVariable', { val: true, ack: true, expire: 30 });
-
-    // examples for the checkPassword/checkGroup functions
-    adapter.checkPassword('admin', 'iobroker', (res) => {
-        adapter.log.info('check user admin pw ioboker: ' + res);
-    });
-
-    adapter.checkGroup('admin', 'admin', (res) => {
-        adapter.log.info('check group user admin group admin: ' + res);
-    });
-
+if (module.parent) {
+    // Export the constructor in compact mode
+    /**
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
+    module.exports = (options) => new Siegenia(options);
+} else {
+    // otherwise start the instance directly
+    new Siegenia();
 }

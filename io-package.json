@@ -12,20 +12,22 @@
                 "fr": "Première version",
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
-                "pl": "Pierwsze wydanie"
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
             }
         },
-        "title": "Siegenia Devices",
+        "title": "Siegenia devices",
         "titleLang": {
-            "en": "Siegenia Devices",
+            "en": "Siegenia devices",
             "de": "Siegenia-Geräte",
-            "ru": "Siegenia Devices",
-            "pt": "Siegenia Devices",
+            "ru": "Устройства Siegenia",
+            "pt": "Dispositivos Siegenia",
             "nl": "Siegenia-apparaten",
             "fr": "Appareils Siegenia",
             "it": "Dispositivi Siegenia",
             "es": "Dispositivos Siegenia",
-            "pl": "Siegenia Devices"
+            "pl": "Urządzenia Siegenia",
+            "zh-cn": "Siegenia设备"
         },
         "desc": {
             "en": "ioBroker support for Siegenia Devices",
@@ -55,7 +57,8 @@
         "readme": "https://github.com/Apollon77/ioBroker.siegenia/blob/master/README.md",
         "loglevel": "info",
         "mode": "daemon",
-        "type": "household",
+        "type": "climate-control",
+        "compact": true,
         "materialize": true,
         "dependencies": [
             {
