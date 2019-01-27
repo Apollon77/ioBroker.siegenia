@@ -1,0 +1,78 @@
+{
+    "common": {
+        "name": "siegenia",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie"
+            }
+        },
+        "title": "Siegenia Devices",
+        "titleLang": {
+            "en": "Siegenia Devices",
+            "de": "Siegenia-Geräte",
+            "ru": "Siegenia Devices",
+            "pt": "Siegenia Devices",
+            "nl": "Siegenia-apparaten",
+            "fr": "Appareils Siegenia",
+            "it": "Dispositivi Siegenia",
+            "es": "Dispositivos Siegenia",
+            "pl": "Siegenia Devices"
+        },
+        "desc": {
+            "en": "ioBroker support for Siegenia Devices",
+            "de": "ioBroker-Unterstützung für Siegenia-Geräte",
+            "ru": "Поддержка ioBroker для устройств Siegenia",
+            "pt": "Suporte ioBroker para Siegenia Devices",
+            "nl": "ioBroker-ondersteuning voor Siegenia-apparaten",
+            "fr": "Prise en charge d'ioBroker pour les périphériques Siegenia",
+            "it": "Supporto di ioBroker per dispositivi Siegenia",
+            "es": "Soporte de ioBroker para dispositivos Siegenia",
+            "pl": "Obsługa iSCroker dla urządzeń Siegenia"
+        },
+        "authors": [
+            "Apollon77 <iobroker@fischer-ka.de>"
+        ],
+        "keywords": [
+            "ioBroker",
+            "template",
+            "Smart Home",
+            "home automation"
+        ],
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "siegenia.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.siegenia/master/admin/siegenia.png",
+        "readme": "https://github.com/Apollon77/ioBroker.siegenia/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "household",
+        "materialize": true,
+        "dependencies": [
+            {
+                "admin": ">=3.0.0"
+            }
+        ]
+    },
+    "native": {
+        "devices": [
+            {
+                "ip": "127.0.0.1",
+                "name": "Test",
+                "isAdmin": false,
+                "password": ""
+            }
+        ]
+    },
+    "objects": [],
+    "instanceObjects": []
+}
