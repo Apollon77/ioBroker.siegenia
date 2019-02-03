@@ -6,6 +6,8 @@
 
 const utils = require('@iobroker/adapter-core');
 const ObjectHelper = require('@apollon/iobroker-tools'); // Get common adapter utils
+const SiegeniaDevice = require('./lib/siegenia.js');
+const Mapper = require('./lib/mapper.js');
 
 class Siegenia extends utils.Adapter {
 
@@ -24,59 +26,27 @@ class Siegenia extends utils.Adapter {
         this.on('unload', this.onUnload);
         this.objectHelper = ObjectHelper.objectHelper;
         this.objectHelper.init(this);
+        this.devices = {};
     }
 
     /**
      * Is called when databases are connected and adapter received configuration.
      */
-    async onReady() {
-        // Initialize your adapter here
-
-        // The adapters config (in the instance object everything under the attribute "native") is accessible via
-        // this.config:
-        this.log.info('config test1: ' + this.config.option1);
-        this.log.info('config test1: ' + this.config.option2);
-
-        /*
-        For every state in the system there has to be also an object of type state
-        Here a simple template for a boolean variable named "testVariable"
-        Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-        */
-        await this.setObjectAsync('testVariable', {
-            type: 'state',
-            common: {
-                name: 'testVariable',
-                type: 'boolean',
-                role: 'indicator',
-                read: true,
-                write: true,
-            },
-            native: {},
+    onReady() {
+        if (!this.config || !this.config.devices) {
+            this.config.devices = [];
+        }
+        this.log.info('Initialize ' + this.config.devices.length + ' devices');
+        let deviceCount = this.config.devices.length;
+        this.config.devices.forEach((dev) => {
+            this.initDevice(dev, (err) => {
+                if (--deviceCount === 0) {
+                    this.objectHelper.processObjectQueue(() => {
+                        this.subscribeStates('*');
+                    });
+                }
+            });
         });
-
-        // in this template all states changes inside the adapters namespace are subscribed
-        this.subscribeStates('*');
-
-        /*
-        setState examples
-        you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-        */
-        // the variable testVariable is set to true as command (ack=false)
-        await this.setStateAsync('testVariable', true);
-
-        // same thing, but the value is flagged "ack"
-        // ack should be always set to true if the value is received from or acknowledged from the target system
-        await this.setStateAsync('testVariable', { val: true, ack: true });
-
-        // same thing, but the state is deleted after 30s (getState will return null afterwards)
-        await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
-
-        // examples for the checkPassword/checkGroup functions
-        let result = await this.checkPasswordAsync('admin', 'iobroker');
-        this.log.info('check user admin pw ioboker: ' + result);
-
-        result = await this.checkGroupAsync('admin', 'admin');
-        this.log.info('check group user admin group admin: ' + result);
     }
 
     /**
@@ -140,8 +110,194 @@ class Siegenia extends utils.Adapter {
     // 	}
     // }
 
+    initObjects(device, channel, data, command) {
+        let baseId = device.id + '.';
+        if (channel !== '') {
+            baseId += channel + '.';
+            this.objectHelper.setOrUpdateObject(baseId, {
+                type: 'channel',
+                common: {
+                    name: (device.name || device.id) + channel.charAt(0).toUpperCase() + channel.slice(1)
+                }
+            });
+        }
+
+        const objs = Mapper.mapToObjects(command, device.type, data);
+        this.log.debug('Objects for ' + device.ip + '/' + command + '/' + channel + ': ' + JSON.stringify(objs));
+        for (const key in objs) {
+            if (!objs.hasOwnProperty(key)) continue;
+            let onChange = null;
+            const initValue = objs[key].value;
+            const native = objs[key].native;
+            delete objs[key].value;
+            delete objs[key].native;
+            if (objs[key].write) {
+                onChange = (value) => {
+                    value = Mapper.mapValueForWrite(key, value, native);
+                    this.log.debug('onStateChange Device ' + device.ip + ': ' + value);
+                    this.devices[device.ip].comm.setDeviceParams(value, (err, status, data) => {
+                        if (err) {
+                            this.log.error(err);
+                        }
+                        if (status !== 'ok') {
+                            this.log.error('set Device Parameter Error for device ' + device.ip + ': ' + status);
+                        }
+                    });
+                }
+            }
+
+            this.log.debug('Create ' + baseId + key + ': ' + JSON.stringify(objs[key]) + ' / ' + JSON.stringify(native) + ' / ' + !!onChange);
+            this.objectHelper.setOrUpdateObject(baseId + key, {
+                type: 'state',
+                common: objs[key],
+                native: native
+            }, [name], initValue, onChange);
+        }
+    };
+
+    initDevice(device, callback) {
+        if (!device.ip.length) {
+            return callback && callback(new Error('IP not set'));
+        }
+        const options = {
+            ip: device.ip,
+            port: device.port,
+            wsProtocol: device.wsProtocol,
+            logger: this.log.debug
+        };
+        device.id = device.ip.trim().replace(/\./g, '_');
+
+        device.comm = new SiegeniaDevice(options);
+        device.comm.on('connected', () => {
+
+            this.objectHelper.setOrUpdateObject(device.id, {
+                type: 'device',
+                common: {
+                    name: device.name || 'Device ' + device.id
+                },
+                native: {ip: device.ip}
+            });
+            this.objectHelper.setOrUpdateObject(device.id + '.online', {
+                type: 'state',
+                common: {
+                    name: 'Device online status',
+                    type: 'boolean',
+                    role: 'indicator.reachable',
+                    read: true,
+                    write: false
+                }
+            }, true);
+
+
+            device.comm.getDeviceInfo((err, status, data) => {
+                if (err) {
+                    return callback && callback(err);
+                }
+                if (status !== 'ok') {
+                    return callback && callback(new Error('Get Device Info Error for device ' + device.ip + ': ' + status));
+                }
+
+                if (!data.type || !Mapper.DeviceTypeMap[data.type]) {
+                    return callback && callback(new Error('Unknown device type for device ' + device.ip + ': ' + data.type));
+                }
+                device.type = data.type;
+                this.initObjects(device, 'info', data, 'getDevice');
+
+                device.comm.loginUser(device.isAdmin, device.password, (err, status, data) => {
+                    if (err) {
+                        return callback && callback(err);
+                    }
+                    if (status !== 'ok') {
+                        return callback && callback(new Error('Login Error for device ' + device.ip + ': ' + status));
+                    }
+                    device.token = data.token;
+
+                    device.comm.getDeviceState((err, status, data) => {
+                        if (err) {
+                            return callback && callback(err);
+                        }
+                        if (status !== 'ok') {
+                            return callback && callback(new Error('Get Device State Error for device ' + device.ip + ': ' + status));
+                        }
+
+                        this.initObjects(device, 'params', data, 'getDeviceState');
+
+                        device.comm.getDeviceParams((err, status, data) => {
+                            if (err) {
+                                return callback && callback(err);
+                            }
+                            if (status !== 'ok') {
+                                return callback && callback(new Error('Get Device Parameters Error for device ' + device.ip + ': ' + status));
+                            }
+
+                            this.initObjects(device, 'params', data, 'getDeviceParams');
+
+                            device.comm.getDeviceDetails((err, status, data) => {
+                                if (err) {
+                                    return callback && callback(err);
+                                }
+                                if (status !== 'ok') {
+                                    return callback && callback(new Error('Get Device Details Error for device ' + device.ip + ': ' + status));
+                                }
+
+                                this.initObjects(device, 'details', data, 'getDeviceDetails');
+
+                                this.objectHelper.setOrUpdateObject(device.id + '.reboot', {
+                                    type: 'state',
+                                    common: {
+                                        name: 'Reboot Device',
+                                        type: 'boolean',
+                                        role: 'button',
+                                        read: false,
+                                        write: true
+                                    }
+                                }, false, (value) => {
+                                    this.devices[device.ip].comm.rebootDevice((err, status, data) => {
+                                        if (err) {
+                                            this.log.error(err);
+                                        }
+                                        if (status !== 'ok') {
+                                            this.log.error('Reboot Error for device ' + device.ip + ': ' + status);
+                                        }
+                                    });
+                                });
+
+                                this.devices[device.ip] = device;
+                                callback && callback();
+                            });
+                        });
+                    });
+                });
+            });
+        });
+        device.comm.on('closed', (code, reason) => {
+            this.log.info('Connection to Device ' + device.ip + ': CLOSED ' + code + ' / ' + reason);
+            this.setState(device.id + '.online', false, true);
+        });
+        device.comm.on('error', (error) => {
+            this.log.error('Device ' + device.ip + ': ERROR ' + error);
+        });
+        device.comm.on('reconnected', () => {
+            this.log.info('Connection to Device ' + device.ip + ': RECONNECTED');
+            this.setState(device.id + '.online', true, true);
+        });
+        device.comm.on('data', (status, data, command) => {
+            this.log.debug('DATA for ' + device.ip + ':' + command + ' / ' + status + ' / ' + JSON.stringify(data));
+            if (data) {
+                const states = Mapper.mapToStates(command, this.devices[device.ip].type, data);
+                this.log.debug('Set States for ' + device.ip + ': ' + JSON.stringify(states));
+                for (const key in states) {
+                    if (!states.hasOwnProperty(key)) continue;
+                    this.setState(this.devices[device.ip].id + '.params.' + key, states[key], true);
+                }
+            }
+        });
+
+        device.comm.connect();
+    }
 }
 
+// @ts-ignore
 if (module.parent) {
     // Export the constructor in compact mode
     /**

@@ -1,7 +1,7 @@
 const SiegeniaDevice = require('./lib/siegenia.js');
 const Mapper = require('./lib/mapper.js');
 
-const dev = new SiegeniaDevice({wsProtocol: 'ws', 'ip': '127.0.0.1', 'port': 8080});
+const dev = new SiegeniaDevice({wsProtocol: 'ws', 'ip': '127.0.0.1', 'port': 8080, logger: console.log});
 
 dev.on('connected', () => {
     console.log('DEV: CONNECTED');
@@ -25,9 +25,9 @@ dev.on('closed', (code, reason) => {
 dev.on('error', (error) => {
     console.log('DEV: ERROR ' + error);
 });
-/*dev.on('reconnect', () => {
+dev.on('reconnected', () => {
     console.log('DEV: RECONNECT');
-});*/
+});
 dev.on('data', (status, data, command) => {
     console.log('DEV: DATA ' + command + ' / ' + status + ' / ' + JSON.stringify(data));
     if (data) {
