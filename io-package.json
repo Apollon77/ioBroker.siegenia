@@ -45,9 +45,10 @@
         ],
         "keywords": [
             "ioBroker",
-            "template",
-            "Smart Home",
-            "home automation"
+            "Siegenia",
+            "Air flow",
+            "home automation",
+            "climate control"
         ],
         "platform": "Javascript/Node.js",
         "main": "main.js",

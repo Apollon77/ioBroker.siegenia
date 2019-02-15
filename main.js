@@ -29,7 +29,6 @@ class Siegenia extends utils.Adapter {
         this.devices = {};
         this.connected = null;
         this.connectedDevices = 0;
-
     }
 
     /**
@@ -67,6 +66,14 @@ class Siegenia extends utils.Adapter {
      */
     onUnload(callback) {
         this.setConnected(false);
+        for (const ip in this.devices) {
+            if (!this.devices.hasOwnProperty(ip)) continue;
+            if (this.devices[ip].comm) {
+                this.devices[ip].comm.disconnect(true);
+                this.devices[ip].comm = null;
+            }
+        }
+
         try {
             this.log.info('cleaned everything up...');
             callback();
@@ -191,7 +198,6 @@ class Siegenia extends utils.Adapter {
         browser.on('update', (data) => {
             this.log.debug('Discovery answer: ' + JSON.stringify(data));
             if (!data.addresses || !data.addresses[0] || !data.type) return;
-            const checkDevices = {};
             for (let i = 0; i < data.type.length; i++) {
                 if (data.type[i].name === 'siegenia') {
                     this.getBasicData(data.addresses[0], (data) => {
