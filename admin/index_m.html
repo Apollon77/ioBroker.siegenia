@@ -1,9 +1,8 @@
 <html>
-
 <head>
-
-    <!-- Load ioBroker scripts and styles-->
-    <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+    <meta charset="UTF-8">
+    <!-- Materialze style -->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
     <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
 
     <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
@@ -12,76 +11,168 @@
     <script type="text/javascript" src="../../js/translate.js"></script>
     <script type="text/javascript" src="../../lib/js/materialize.js"></script>
     <script type="text/javascript" src="../../js/adapter-settings.js"></script>
-
-    <!-- Load our own files -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
     <script type="text/javascript" src="words.js"></script>
 
     <script type="text/javascript">
-        // This will be called by the admin adapter when the settings page loads
-        function load(settings, onChange) {
-            // example: select elements with id=key and class=value and insert value
-            if (!settings) return;
-            $('.value').each(function () {
-                var $key = $(this);
-                var id = $key.attr('id');
-                if ($key.attr('type') === 'checkbox') {
-                    // do not call onChange direct, because onChange could expect some arguments
-                    $key.prop('checked', settings[id])
-                        .on('change', () => onChange())
-                        ;
+        var timeout;
+        var counter  = 0;
+
+        var secret;
+
+        function encrypt(key, value) {
+            var result = '';
+            for (var i = 0; i < value.length; ++i) {
+                result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+            }
+            return result;
+        }
+
+        function decrypt(key, value) {
+            var result = '';
+            for (var i = 0; i < value.length; ++i) {
+                result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+            }
+            return result;
+        }
+
+        function readDevices(onChange) {
+            $('.table-button-scan').addClass('disabled');
+            showToast(null, _('The scan will take approx 5s ...'));
+            $('.progress-bar').show();
+            sendTo(null, 'discover', null, function (list) {
+                $('.table-button-scan').removeClass('disabled');
+                $('.progress-bar').hide();
+
+                var devices = table2values('devices');
+                var added = 0;
+                if (list.length) {
+                    for (var j = 0; j < list.length; j++) {
+                        var found = false;
+                        for (var d = 0; d < devices.length; d++) {
+                            if (devices[d].ip == list[j].ip) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            added++;
+                            devices.push({ip: list[j].ip, name: list[j].name, isAdmin: false, password: '0000'});
+                        }
+                    }
+                }
+
+                if (added) {
+                    values2table('devices', devices, onChange);
+                    showToast(null, _('Found %s devices. Added %s new devices.', list.length, added));
+                    onChange(true);
                 } else {
-                    // do not call onChange direct, because onChange could expect some arguments
-                    $key.val(settings[id])
-                        .on('change', () => onChange())
-                        .on('keyup', () => onChange())
-                        ;
+                    if (list && list.length) {
+                        showToast(null, _('Found %s devices. Nothing new.',  list.length));
+                    } else {
+                        showToast(null, _('No devices found'));
+                    }
+
+                }
+            });
+        }
+
+        function load(settings, onChange) {
+            socket.emit('getObject', 'system.config', function (err, obj) {
+                secret = (obj.native ? obj.native.secret : '') || 'Zgfr56gFe87jJOM';
+                loadHelper(settings, onChange);
+            });
+
+            onChange(false);
+        }
+
+        function loadHelper(settings, onChange) {
+            $('.progress-bar').hide();
+            if (!settings.type) settings.type = 'tcp';
+
+            $('.value').each(function () {
+                var key = $(this).attr('id');
+                var val = $key.data('crypt') && settings[key] ? decrypt(secret, settings[key]) : settings[key];
+                var $key = $('#' + key + '.value');
+                if ($key.attr('type') === 'checkbox') {
+                    $key.prop('checked', val).on('change', function() {
+                        onChange();
+                    });
+                } else {
+                    $key.val(val).on('change', function() {
+                        onChange();
+                    }).on('keyup', function() {
+                        onChange();
+                    });
+                }
+            });
+
+            $('.table-button-scan').addClass('disabled');
+
+            getIsAdapterAlive(function (isAlive) {
+                if (isAlive || common.enabled) {
+                    $('.table-button-scan').removeClass('disabled').on('click', function () {
+                        readDevices(onChange);
+                    });
                 }
             });
             onChange(false);
-            // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
-            if (M) M.updateTextFields();
+            M.updateTextFields();
+            values2table('devices', settings.devices, onChange);
         }
 
-        // This will be called by the admin adapter when the user presses the save button
         function save(callback) {
-            // example: select elements with class=value and build settings object
             var obj = {};
             $('.value').each(function () {
                 var $this = $(this);
                 if ($this.attr('type') === 'checkbox') {
                     obj[$this.attr('id')] = $this.prop('checked');
                 } else {
-                    obj[$this.attr('id')] = $this.val();
+                    obj[$this.attr('id')] = $this.data('crypt') && $this.val() ? encrypt(secret, $this.val()) : $this.val();
                 }
             });
+            obj.devices = table2values('devices');
             callback(obj);
         }
     </script>
-
+    <style>
+        .m .select-wrapper+label {
+            top: 100%;
+        }
+        .table-button-add {
+            margin: 5px;
+        }
+    </style>
 </head>
-
 <body>
-
-    <div class="m adapter-container">
-
-        <!-- Put your content here -->
-        <h1 class="translate">siegenia adapter settings</h1>
-
-        <!-- For example two columns with settings: -->
-        <div class="row">
-            <div class="col s6 input-field">
-                <input type="checkbox" class="value" id="option1" />
-                <label for="option1" class="translate">option 1 description</label>
+<div class="m adapter-container">
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <img src="siegenia.jpg" class="logo">
             </div>
-            <div class="col s6 input-field">
-                <input type="text" class="value" id="option2" />
-                <label for="option2" class="translate">option 2 description</label>
+            <div class="col s12" id="devices">
+                <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                <a class="btn-floating waves-effect waves-light blue table-button-scan translate" title="Scan devices"><i class="material-icons">search</i></a>
+                <div class="progress progress-bar">
+                    <div class="indeterminate"></div>
+                </div>
+                <div class="table-values-div">
+                    <table class="table-values">
+                        <thead>
+                        <tr>
+                            <th data-name="ip" class="translate">IP</th>
+                            <th data-name="name" class="translate">Name</th>
+                            <th data-name="isAdmin" class="translate">Admin-Login?</th>
+                            <th data-name="password" class="translate">Password</th>
+                            <th data-buttons="delete up down"></th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
-
     </div>
-
+</div>
 </body>
-
 </html>
