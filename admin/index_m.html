@@ -16,6 +16,22 @@
     <script type="text/javascript">
         var secret;
 
+        function encrypt(key, value) {
+            var result = '';
+            for (var i = 0; i < value.length; ++i) {
+                result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+            }
+            return result;
+        }
+
+        function decrypt(key, value) {
+            var result = '';
+            for (var i = 0; i < value.length; ++i) {
+                result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+            }
+            return result;
+        }
+
         function readDevices(onChange) {
             $('.table-button-scan').addClass('disabled');
             showToast(null, _('The scan will take approx 5s ...'));
