@@ -47,8 +47,7 @@ class Siegenia extends utils.Adapter {
             this.log.info('Initialize ' + this.config.devices.length + ' devices');
             this.config.devices.forEach((dev) => {
                 if (dev.password) {
-                    //dev.password = this.decrypt(secret, dev.password);
-                    //TODO!
+                    dev.password = this.decrypt(secret, dev.password);
                 }
                 this.initDevice(dev, (err) => {
                     if (err) {

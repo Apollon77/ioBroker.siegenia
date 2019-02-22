@@ -1,4 +1,4 @@
-systemDictionary = {
+const systemDictionary = {
     "IP": {"en": "IP", "de": "IP", "ru": "IP", "pt": "IP", "nl": "IP", "fr": "IP"},
     "The scan can last over one minute or even longer. Be patient...": {
         "en": "The scan can last over one minute or even longer. Be patient...",
