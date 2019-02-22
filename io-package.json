@@ -54,7 +54,7 @@
         "main": "main.js",
         "icon": "siegenia.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.siegenia/master/admin/siegenia.jpg",
+        "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.siegenia/master/admin/siegenia.png",
         "readme": "https://github.com/Apollon77/ioBroker.siegenia/blob/master/README.md",
         "loglevel": "info",
         "mode": "daemon",
