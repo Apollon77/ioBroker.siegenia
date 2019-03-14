@@ -6,7 +6,7 @@ const dev = new SiegeniaDevice({wsProtocol: 'ws', 'ip': '127.0.0.1', 'port': 808
 dev.on('connected', () => {
     console.log('DEV: CONNECTED');
 
-    dev.loginUser(true, 'blubb', (err, status, data) => logger(err, status, data, 'login'));
+    dev.loginUser('user', 'blubb', (err, status, data) => logger(err, status, data, 'login'));
     dev.loginToken( 'my-token', (err, status, data) => logger(err, status, data, 'login'));
     dev.logout((err, status, data) => logger(err, status, data, 'logout'));
     dev.getDeviceState((err, status, data) => logger(err, status, data, 'getDeviceState'));

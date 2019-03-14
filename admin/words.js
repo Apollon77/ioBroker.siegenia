@@ -79,17 +79,17 @@ const systemDictionary = {
         "pl": "Imię",
         "zh-cn": "名称"
     },
-    "Admin-Login?": {
-        "en": "Admin-Login?",
-        "de": "Admin Login?",
-        "ru": "Admin-Войти?",
-        "pt": "Login de administrador?",
-        "nl": "Admin-login?",
-        "fr": "Admin-Login?",
-        "it": "Admin-login?",
-        "es": "Admin-Login?",
-        "pl": "Admin-Login?",
-        "zh-cn": "管理员登录？"
+    "Username": {
+        "en": "Username",
+        "de": "Nutzername",
+        "ru": "имя пользователя",
+        "pt": "Nome de usuário",
+        "nl": "Gebruikersnaam",
+        "fr": "Nom d'utilisateur",
+        "it": "Nome utente",
+        "es": "Nombre de usuario",
+        "pl": "Nazwa Użytkownika",
+        "zh-cn": "用户名"
     },
     "Password": {
         "en": "Password",

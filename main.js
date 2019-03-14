@@ -202,7 +202,7 @@ class Siegenia extends utils.Adapter {
                     this.getBasicData(data.addresses[0], (data) => {
                         if (data) {
                             if (data.name === undefined) data.name = '';
-                            if (data.isAdmin === undefined) data.isAdmin = false;
+                            if (data.user === undefined) data.user = "user";
                             if (data.password === undefined) data.password = '0000';
                             foundIps.push(data);
                         }
@@ -284,7 +284,7 @@ class Siegenia extends utils.Adapter {
             device.type = data.type;
             this.initObjects(device, 'info', data, 'getDevice');
 
-            device.comm.loginUser(device.isAdmin, device.password, (err, status, data) => {
+            device.comm.loginUser(device.user, device.password, (err, status, data) => {
                 if (err) {
                     return callback && callback(err);
                 }
