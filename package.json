@@ -40,15 +40,17 @@
     "gulp": "^4.0.0",
     "mocha": "^5.2.0",
     "proxyquire": "^2.1.0",
-    "sinon": "^7.2.3",
-    "sinon-chai": "^3.3.0"
+    "sinon": "^7.2.4",
+    "sinon-chai": "^3.3.0",
+    "@iobroker/testing": "^1.2.2"
   },
   "main": "main.js",
   "scripts": {
     "test:js": "mocha --opts test/mocha.custom.opts",
     "test:package": "mocha test/testPackageFiles.js --exit",
-    "test:iobroker": "mocha test/testStartup.js --exit",
-    "test": "npm run test:js && npm run test:package",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:package && npm run test:unit",
     "lint": "npm run lint:js",
     "lint:js": "eslint"
   },

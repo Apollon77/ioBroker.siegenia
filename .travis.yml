@@ -19,7 +19,8 @@ before_script:
   - npm -v
 script:
   - npm run test:package
-  - npm run test:iobroker
+  - npm run test:unit
+  - npm run test:integration
 addons:
   apt:
     sources:
