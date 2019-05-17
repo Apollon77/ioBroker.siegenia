@@ -1,7 +1,6 @@
-<h1>
-    <img src="admin/siegenia.png" width="64"/>
-    ioBroker.siegenia
-</h1>
+# ioBroker.siegenia
+
+<img src="./admin/siegenia.png" width="64"/>
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
@@ -10,16 +9,35 @@
 
 [![NPM](https://nodei.co/npm/iobroker.siegenia.png?downloads=true)](https://nodei.co/npm/iobroker.siegenia/)
 
-**Tests:** Linux/Mac: [![Travis-CI](http://img.shields.io/travis/Apollon77/ioBroker.siegenia/master.svg)](https://travis-ci.org/Apollon77/ioBroker.siegenia)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/Apollon77/ioBroker.siegenia?branch=master&svg=true)](https://ci.appveyor.com/project/Apollon77/ioBroker-siegenia/)
+**Tests:** Linux/Mac/Windows: [![Travis-CI](http://img.shields.io/travis/Apollon77/ioBroker.siegenia/master.svg)](https://travis-ci.org/Apollon77/ioBroker.siegenia)
 
-ioBroker support for Siegenia Devices
 
-Minimum nodejs 8!
+This adapter provides ioBroker support for Siegenia Climate and Air control Devices (https://www.siegenia.com).
+
+The adapter requires minimum Nodejs 8.x.
+
+## Featureset
+
+All current devices are support by this adapter:
+* AEROPAC
+* AEROMAT VT
+* DRIVE axxent DK/MH
+* SENSOAIR
+* AEROVITAL ambience
+* MHS Family
+* AEROTUBE
+* Universal Module
+
+The adapter is capable to automatically detect the Siegenia devices in the same network as ioBroker and will list them in it's Admin interface. You only need to correct the user and password after the detection. But you can also enter IPs and login data manually.
+
+All available data fields of the detected device are shown in objects and provide current data and/or allow data to be changed.
+
+Timers and other more complex data are shown by the adapter, but can be changed only through the Siegenia App. 
+
 
 ## Changelog
 
-### 0.0.1
+### 1.0.0
 * (Apollon77) initial release
 
 ## License
