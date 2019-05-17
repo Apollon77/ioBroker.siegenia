@@ -24,3 +24,8 @@ admin/i18n
 
 # maintenance scripts
 maintenance/**
+
+siegenia-test.js
+ws-simulator.js
+tsconfig.json
+admin/tsconfig.json
