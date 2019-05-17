@@ -15,6 +15,8 @@ Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/Apollon
 
 ioBroker support for Siegenia Devices
 
+Minimum nodejs 8!
+
 ## Changelog
 
 ### 0.0.1
