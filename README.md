@@ -1,6 +1,6 @@
 # ioBroker.siegenia
 
-<img src="./admin/siegenia_logo.png" width="64"/>
+<img src="./admin/siegenia_logo.jpg" width="64"/>
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
