@@ -68,7 +68,19 @@
             {
                 "admin": ">=3.0.0"
             }
-        ]
+        ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://9bed0b2547c646b98aeeda8aec72ab4c@sentry.iobroker.net/110",
+                "pathWhitelist": [
+                    "@apollon"
+                ],
+                "errorBlacklist": [
+                    "SyntaxError"
+                ]
+            }
+        }
+
     },
     "native": {
         "devices": [

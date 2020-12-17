@@ -49,9 +49,11 @@ class Siegenia extends utils.Adapter {
                 if (dev.password) {
                     dev.password = this.decrypt(secret, dev.password);
                 }
+                dev.comm = null;
                 this.initDevice(dev, (err) => {
                     if (err) {
                         this.log.error('Error initializing device ' + dev.ip + ': ' + err);
+                        dev.comm.disconnect();
                     }
                 });
             });
@@ -140,7 +142,7 @@ class Siegenia extends utils.Adapter {
 
     setConnected(isConnected) {
         if (this.connected !== isConnected) {
-            this.connected = isConnected;
+            this.connected = !!isConnected;
             this.setState('info.connection', this.connected, true);
         }
     }
@@ -359,6 +361,7 @@ class Siegenia extends utils.Adapter {
 
     initDevice(device, callback) {
         if (!device.ip.length) {
+            this.setConnected((--this.connectedDevices > 0));
             return callback && callback(new Error('IP not set'));
         }
         const options = {
