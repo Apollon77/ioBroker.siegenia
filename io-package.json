@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "siegenia",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "news": {
+            "1.0.1": {
+                "en": "update dependencies\ndisconnect device if authentication was not successful",
+                "de": "Abhängigkeiten aktualisieren\nTrennen Sie das Gerät, wenn die Authentifizierung nicht erfolgreich war",
+                "ru": "обновить зависимости\nотключите устройство, если аутентификация не удалась",
+                "pt": "atualizar dependências\ndesconecte o dispositivo se a autenticação não for bem-sucedida",
+                "nl": "update afhankelijkheden\nkoppel het apparaat los als de authenticatie niet is gelukt",
+                "fr": "mettre à jour les dépendances\ndéconnecter l'appareil si l'authentification a échoué",
+                "it": "aggiornare le dipendenze\nscollegare il dispositivo se l'autenticazione non è andata a buon fine",
+                "es": "actualizar dependencias\ndesconectar el dispositivo si la autenticación no fue exitosa",
+                "pl": "zależności aktualizacji\nodłącz urządzenie, jeśli uwierzytelnianie nie powiodło się",
+                "zh-cn": "更新依赖\n如果身份验证失败，则断开设备连接"
+            },
             "1.0.0": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",
@@ -80,7 +92,6 @@
                 ]
             }
         }
-
     },
     "native": {
         "devices": [
