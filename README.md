@@ -38,7 +38,7 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 
 ## Changelog
 
-### __WORK IN PROGRESS__
+### 1.1.0 (2021-01-22)
 * (Apollon77) Prevent crash case (Sentry IOBROKER-SIEGENIA-1)
 * (Apollon77) js-controller 2.0 is now required at least
 

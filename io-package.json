@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "siegenia",
-        "version": "1.0.1",
+        "version": "1.1.0",
         "news": {
+            "1.1.0": {
+                "en": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is now required at least",
+                "de": "Absturz verhindern (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ist jetzt mindestens erforderlich",
+                "ru": "Случай предотвращения аварии (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 теперь требуется как минимум",
+                "pt": "Prevenir caso de travamento (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 agora é necessário pelo menos",
+                "nl": "Voorkom een crashgeval (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is nu minimaal vereist",
+                "fr": "Prévenir les cas de crash (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 est maintenant requis au moins",
+                "it": "Prevenire crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 è ora almeno richiesto",
+                "es": "Caso de prevención de accidentes (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ahora se requiere al menos",
+                "pl": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 jest teraz wymagany przynajmniej",
+                "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-SIEGENIA-1）\n现在至少需要js-controller 2.0"
+            },
             "1.0.1": {
                 "en": "update dependencies\ndisconnect device if authentication was not successful",
                 "de": "Abhängigkeiten aktualisieren\nTrennen Sie das Gerät, wenn die Authentifizierung nicht erfolgreich war",
