@@ -53,7 +53,7 @@ class Siegenia extends utils.Adapter {
                 this.initDevice(dev, (err) => {
                     if (err) {
                         this.log.error('Error initializing device ' + dev.ip + ': ' + err);
-                        dev.comm.disconnect();
+                        dev.comm && dev.comm.disconnect();
                     }
                 });
             });
