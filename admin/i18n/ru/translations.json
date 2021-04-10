@@ -1,0 +1,12 @@
+{
+  "Found %s devices. Added %s new devices.": "Найдено %s устройств. Добавлено %s новых устройств.",
+  "Found %s devices. Nothing new.": "Найдено %s устройств. Ничего нового.",
+  "IP": "IP",
+  "Name": "название",
+  "No devices found": "Не найдено ни одного устройства",
+  "Password": "пароль",
+  "Scan devices": "Сканировать устройства",
+  "The scan can last over one minute or even longer. Be patient...": "Сканирование может длиться более одной минуты или даже дольше. Потерпи...",
+  "The scan will take approx 5s ...": "Сканирование займет около 5 с ...",
+  "Username": "имя пользователя"
+}

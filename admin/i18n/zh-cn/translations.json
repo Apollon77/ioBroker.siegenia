@@ -1,0 +1,12 @@
+{
+  "Found %s devices. Added %s new devices.": "",
+  "Found %s devices. Nothing new.": "",
+  "IP": "",
+  "Name": "名称",
+  "No devices found": "",
+  "Password": "密码",
+  "Scan devices": "",
+  "The scan can last over one minute or even longer. Be patient...": "",
+  "The scan will take approx 5s ...": "扫描大约需要5秒......",
+  "Username": "用户名"
+}
