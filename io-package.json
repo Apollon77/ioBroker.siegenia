@@ -62,7 +62,8 @@
             "fr": "Prise en charge d'ioBroker pour les périphériques Siegenia",
             "it": "Supporto di ioBroker per dispositivi Siegenia",
             "es": "Soporte de ioBroker para dispositivos Siegenia",
-            "pl": "Obsługa iSCroker dla urządzeń Siegenia"
+            "pl": "Obsługa iSCroker dla urządzeń Siegenia",
+            "zh-cn": "ioBroker对Siegenia设备的支持"
         },
         "authors": [
             "Apollon77 <iobroker@fischer-ka.de>"
