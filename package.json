@@ -43,7 +43,7 @@
     "sinon": "^10.0.0",
     "sinon-chai": "^3.6.0",
     "@iobroker/testing": "^2.4.4",
-    "@alcalzone/release-script": "^1.8.3"
+    "@alcalzone/release-script": "^1.10.0"
   },
   "main": "main.js",
   "scripts": {
