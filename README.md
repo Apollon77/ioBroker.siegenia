@@ -38,6 +38,9 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 
 ## Changelog
 
+### 1.1.1 (2021-05-08)
+* (thost96) fixes for issues found by adapter-checker (issue #2)
+
 ### 1.1.0 (2021-01-22)
 * (Apollon77) Prevent crash case (Sentry IOBROKER-SIEGENIA-1)
 * (Apollon77) js-controller 2.0 is now required at least
@@ -52,7 +55,7 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 ## License
 MIT License
 
-Copyright (c) 2019 Apollon77
+Copyright (c) 2019-2021 Apollon77 iobroker@fischer-ka.de
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
