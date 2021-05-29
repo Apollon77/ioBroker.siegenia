@@ -2,7 +2,7 @@
     "Found %s devices. Added %s new devices.": "Найдено %s устройств. Добавлено %s новых устройств.",
     "Found %s devices. Nothing new.": "Найдено %s устройств. Ничего нового.",
     "IP": "IP",
-    "Name": "название",
+    "Name": "Имя",
     "No devices found": "Не найдено ни одного устройства",
     "Password": "пароль",
     "Scan devices": "Сканировать устройства",
