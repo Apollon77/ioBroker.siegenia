@@ -86,6 +86,8 @@
         "messagebox": true,
         "subscribe": "messagebox",
         "type": "climate-control",
+        "connectionType": "local",
+        "dataSource": "push",
         "compact": true,
         "materialize": true,
         "license": "MIT",
