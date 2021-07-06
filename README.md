@@ -2,14 +2,13 @@
 
 <img src="./admin/siegenia_logo.jpg"/>
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
+![Number of Installations](http://iobroker.live/badges/siegenia-installed.svg)
+![Number of Installations](http://iobroker.live/badges/siegenia-stable.svg)
+[![NPM version](http://img.shields.io/npm/v/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.digitalstrom)
+
+![Test and Release](https://github.com/Apollon77/ioBroker.siegenia/workflows/Test%20and%20Release/badge.svg)
+[![Translation status](https://weblate.iobroker.net/widgets/adapters/-/siegenia/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.siegenia.svg)](https://www.npmjs.com/package/iobroker.siegenia)
-[![Dependency Status](https://img.shields.io/david/Apollon77/iobroker.siegenia.svg)](https://david-dm.org/Apollon77/iobroker.siegenia)
-[![Known Vulnerabilities](https://snyk.io/test/github/Apollon77/ioBroker.siegenia/badge.svg)](https://snyk.io/test/github/Apollon77/ioBroker.siegenia)
-
-[![NPM](https://nodei.co/npm/iobroker.siegenia.png?downloads=true)](https://nodei.co/npm/iobroker.siegenia/)
-
-**Tests:** Linux/Mac/Windows: [![Travis-CI](http://img.shields.io/travis/Apollon77/ioBroker.siegenia/master.svg)](https://travis-ci.org/Apollon77/ioBroker.siegenia)
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
@@ -38,8 +37,8 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 
 ## Changelog
 
-### 1.1.1 (2021-05-08)
-* (thost96) fixes for issues found by adapter-checker (issue #2)
+### __WORK IN PROGRESS__
+* (thost96/Apollon77) Optimize for js-controller 3.3
 
 ### 1.1.0 (2021-01-22)
 * (Apollon77) Prevent crash case (Sentry IOBROKER-SIEGENIA-1)
