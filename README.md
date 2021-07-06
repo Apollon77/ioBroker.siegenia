@@ -37,7 +37,7 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 
 ## Changelog
 
-### __WORK IN PROGRESS__
+### 1.1.1 (2021-07-06)
 * (thost96/Apollon77) Optimize for js-controller 3.3
 
 ### 1.1.0 (2021-01-22)
