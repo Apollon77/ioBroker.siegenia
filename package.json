@@ -25,7 +25,7 @@
     "mdns-js": "^1.0.3"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.5.6",
+    "@alcalzone/release-script": "^3.5.8",
     "@iobroker/testing": "^2.6.0",
     "@types/chai": "^4.3.0",
     "@types/chai-as-promised": "^7.1.5",
