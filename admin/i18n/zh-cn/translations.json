@@ -1,7 +1,7 @@
 {
-    "Found %s devices. Added %s new devices.": "找到％s个设备。",
+    "Found %s devices. Added %s new devices.": "找到％s个设备。添加了％s个设备。",
     "Found %s devices. Nothing new.": "找到％s个设备。",
-    "IP": "知识产权",
+    "IP": "IP",
     "Name": "名称",
     "No devices found": "找不到设备",
     "Password": "密码",
