@@ -2,7 +2,7 @@
     "Found %s devices. Added %s new devices.": "Found %s devices. Added %s new devices.",
     "Found %s devices. Nothing new.": "Found %s devices. No new device were added.",
     "IP": "IP",
-    "Name": "Name",
+    "Name": "name",
     "No devices found": "No devices found",
     "Password": "Password",
     "Scan devices": "Scan for devices",
