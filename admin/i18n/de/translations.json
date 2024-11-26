@@ -1,7 +1,7 @@
 {
     "Found %s devices. Added %s new devices.": "%s Geräte gefunden. %s neue Geräte hinzugefügt.",
     "Found %s devices. Nothing new.": "%s Geräte gefunden. Es wurden keine neuen Geräte hinzugefügt.",
-    "IP": "IP-Adresse",
+    "IP": "IP",
     "Name": "Name",
     "No devices found": "Keine Geräte gefunden",
     "Password": "Passwort",
