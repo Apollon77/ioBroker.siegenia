@@ -1,12 +1,16 @@
 {
-    "Found %s devices. Added %s new devices.": "Encontrados %s dispositivos. Añadidos %s dispositivos nuevos.",
-    "Found %s devices. Nothing new.": "Se han encontrado %s dispositivos. No se ha añadido ningún dispositivo nuevo.",
+    "Devices": "Dispositivos",
+    "Found %s devices. Added %s new devices.": "Encontrado %s dispositivos. Se agregaron %s nuevos dispositivos.",
+    "Found %s devices. Nothing new.": "Encontrado %s dispositivos. Nada nuevo.",
     "IP": "IP",
     "Name": "Nombre",
-    "No devices found": "No se han encontrado dispositivos",
+    "No devices found": "No se encontraron dispositivos",
     "Password": "Contraseña",
-    "Scan devices": "Buscar dispositivos",
-    "The scan can last over one minute or even longer. Be patient...": "La exploración puede durar más de un minuto o incluso más. Por favor, sea paciente ...",
-    "The scan will take approx 5s ...": "El escaneo tardará unos 5 segundos ...",
+    "Scan": "Escanear",
+    "Scan devices": "Escanear dispositivos",
+    "Scan failed": "Falló el escaneo",
+    "Scan for devices": "Escanear dispositivos",
+    "The scan can last over one minute or even longer. Be patient...": "El escaneo puede durar más de un minuto o incluso más. Se paciente...",
+    "The scan will take approx 5s ...": "El escaneo tomará aproximadamente 5s ...",
     "Username": "Nombre de usuario"
 }

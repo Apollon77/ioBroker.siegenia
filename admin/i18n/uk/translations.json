@@ -1,11 +1,15 @@
 {
+    "Devices": "Пристрої",
     "Found %s devices. Added %s new devices.": "Знайдено %s пристроїв. Додано %s нових пристроїв.",
     "Found %s devices. Nothing new.": "Знайдено %s пристроїв. Не було додано жодного нового пристрою.",
     "IP": "IP",
     "Name": "Ім'я",
     "No devices found": "Пристроїв не знайдено",
     "Password": "Пароль",
+    "Scan": "Сканувати",
     "Scan devices": "Сканування на наявність пристроїв",
+    "Scan failed": "Сканування не вдалося",
+    "Scan for devices": "Сканування на наявність пристроїв",
     "The scan can last over one minute or even longer. Be patient...": "Сканування може тривати більше однієї хвилини або навіть довше. Будь ласка, наберіться терпіння ...",
     "The scan will take approx 5s ...": "Сканування займе приблизно 5 секунд ...",
     "Username": "Ім'я користувача"

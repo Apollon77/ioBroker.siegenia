@@ -1,0 +1,62 @@
+{
+    "type": "panel",
+    "i18n": true,
+    "items": {
+        "devices": {
+            "type": "table",
+            "label": "Devices",
+            "items": [
+                {
+                    "type": "text",
+                    "title": "IP",
+                    "attr": "ip",
+                    "width": "25%"
+                },
+                {
+                    "type": "text",
+                    "title": "Name",
+                    "attr": "name",
+                    "width": "25%"
+                },
+                {
+                    "type": "text",
+                    "title": "Username",
+                    "attr": "user",
+                    "width": "25%"
+                },
+                {
+                    "type": "password",
+                    "title": "Password",
+                    "attr": "password",
+                    "width": "25%",
+                    "encryptedNative": true
+                }
+            ],
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xs": 12,
+            "xl": 12,
+            "newLine": true
+        },
+        "_scanButton": {
+            "type": "sendTo",
+            "command": "discover",
+            "jsonData": "{ \"devices\": ${JSON.stringify(data.devices)} }",
+            "useNative": true,
+            "showProcess": true,
+            "label": "Scan for devices",
+            "icon": "search",
+            "button": true,
+            "help": "The scan will take approx 5s ...",
+            "variant": "contained",
+            "error": "Scan failed",
+            "sm": 12,
+            "md": 6,
+            "lg": 4,
+            "xs": 12,
+            "xl": 4,
+            "newLine": true
+        }
+    }
+}

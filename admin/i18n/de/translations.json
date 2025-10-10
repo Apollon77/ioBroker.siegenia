@@ -1,11 +1,15 @@
 {
+    "Devices": "Geräte",
     "Found %s devices. Added %s new devices.": "%s Geräte gefunden. %s neue Geräte hinzugefügt.",
     "Found %s devices. Nothing new.": "%s Geräte gefunden. Es wurde kein neues Gerät hinzugefügt.",
     "IP": "IP",
     "Name": "Name",
     "No devices found": "Keine Geräte gefunden",
     "Password": "Passwort",
+    "Scan": "Suchen",
     "Scan devices": "Nach Geräten suchen",
+    "Scan failed": "Scan fehlgeschlagen",
+    "Scan for devices": "Nach Geräten suchen",
     "The scan can last over one minute or even longer. Be patient...": "Der Scan kann über eine Minute oder sogar länger dauern. Bitte haben Sie Geduld ...",
     "The scan will take approx 5s ...": "Der Scanvorgang dauert ca. 5 Sekunden ...",
     "Username": "Benutzername"

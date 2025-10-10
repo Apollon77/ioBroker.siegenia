@@ -1,12 +1,16 @@
 {
+    "Devices": "Устройства",
     "Found %s devices. Added %s new devices.": "Найдено %s устройств. Добавлено %s новых устройств.",
-    "Found %s devices. Nothing new.": "Найдено %s устройств. Новые устройства не добавлены.",
+    "Found %s devices. Nothing new.": "Найдено %s устройств. Ничего нового.",
     "IP": "IP",
     "Name": "Имя",
-    "No devices found": "Устройства не найдены",
+    "No devices found": "Не найдено ни одного устройства",
     "Password": "Пароль",
-    "Scan devices": "Сканирование для поиска устройств",
-    "The scan can last over one minute or even longer. Be patient...": "Сканирование может длиться более одной минуты или даже дольше. Пожалуйста, будьте терпеливы ...",
-    "The scan will take approx 5s ...": "Сканирование займет около 5 секунд ...",
+    "Scan": "Сканировать",
+    "Scan devices": "Сканировать устройства",
+    "Scan failed": "Сканирование не удалось",
+    "Scan for devices": "Сканировать устройства",
+    "The scan can last over one minute or even longer. Be patient...": "Сканирование может длиться более одной минуты или даже дольше. Потерпи...",
+    "The scan will take approx 5s ...": "Сканирование займет около 5 с ...",
     "Username": "Имя пользователя"
 }

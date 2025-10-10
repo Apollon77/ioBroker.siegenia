@@ -124,10 +124,49 @@ class Siegenia extends utils.Adapter {
         this.log.debug(`Request: ${JSON.stringify(obj)}`);
         if (typeof obj === 'object' && obj.command) {
             if (obj.command === 'discover') {
-                this.discoverSiegenia(5000, (err, ips) => {
-                    this.log.debug(`Discovery result: ${JSON.stringify(ips)}`);
-                    // Send response in callback if required
-                    this.sendTo(obj.from, obj.command, ips, obj.callback);
+                this.discoverSiegenia(5000, (err, discoveredDevices) => {
+                    this.log.debug(`Discovery result: ${JSON.stringify(discoveredDevices)}`);
+
+                    if (err) {
+                        this.sendTo(obj.from, obj.command, { error: err.message }, obj.callback);
+                        return;
+                    }
+
+                    // When using sendto with useNative, merge discovered devices with existing ones
+                    const currentDevices = obj.message?.devices || [];
+                    let added = 0;
+                    const totalFound = discoveredDevices ? discoveredDevices.length : 0;
+
+                    if (discoveredDevices && Array.isArray(discoveredDevices)) {
+                        for (const newDevice of discoveredDevices) {
+                            const exists = currentDevices.find(d => d.ip === newDevice.ip);
+                            if (!exists) {
+                                currentDevices.push(newDevice);
+                                added++;
+                            }
+                        }
+                    }
+
+                    // Prepare result message
+                    let resultMsg;
+                    if (added > 0) {
+                        resultMsg = `Found ${totalFound} devices. Added ${added} new devices.`;
+                    } else if (totalFound > 0) {
+                        resultMsg = `Found ${totalFound} devices. Nothing new.`;
+                    } else {
+                        resultMsg = 'No devices found';
+                    }
+
+                    // Send response with updated devices array and result message
+                    this.sendTo(
+                        obj.from,
+                        obj.command,
+                        {
+                            result: resultMsg,
+                            native: { devices: currentDevices },
+                        },
+                        obj.callback,
+                    );
                 });
             }
         }
@@ -397,10 +436,13 @@ class Siegenia extends utils.Adapter {
         });
     }
 
-    initDevice(device, callback) {
+    initDevice(device) {
+        let currentOnlineStatus = false;
+        let initialized = false;
         if (!device.ip.length) {
             this.setConnected(--this.connectedDevices > 0);
-            return callback && callback(new Error('IP not set'));
+            this.log.warn('No IP address configured for device');
+            return;
         }
         const options = {
             ip: device.ip,
@@ -413,6 +455,7 @@ class Siegenia extends utils.Adapter {
         this.log.debug(`init device ${device.id}`);
         device.comm = new SiegeniaDevice(options);
         device.comm.on('connected', () => {
+            currentOnlineStatus = true;
             this.objectHelper.setOrUpdateObject(device.id, {
                 type: 'device',
                 common: {
@@ -449,13 +492,23 @@ class Siegenia extends utils.Adapter {
                 '',
             );
 
-            this.initDeviceObjects(device, callback);
-            this.connectedDevices++;
-            this.setConnected(true);
+            this.initDeviceObjects(device, () => {
+                if (!initialized) {
+                    initialized = true;
+                    this.log.warn(`Device ${device.ip} initialized: ${currentOnlineStatus}`);
+                    this.setState(`${device.id}.online`, currentOnlineStatus, true);
+                }
+
+                this.connectedDevices++;
+                this.setConnected(true);
+            });
         });
         device.comm.on('closed', (code, reason) => {
             this.log.info(`Connection to Device ${device.ip}: CLOSED ${code} / ${reason}`);
-            this.setState(`${device.id}.online`, false, true);
+            currentOnlineStatus = false;
+            if (initialized) {
+                this.setState(`${device.id}.online`, false, true);
+            }
             this.setConnected(--this.connectedDevices > 0);
         });
         device.comm.on('error', error => {
@@ -463,8 +516,11 @@ class Siegenia extends utils.Adapter {
         });
         device.comm.on('reconnected', () => {
             this.log.info(`Connection to Device ${device.ip}: RECONNECTED`);
-            this.setState(`${device.id}.online`, true, true);
-            this.initDeviceObjects(this.devices[device.ip], callback);
+            currentOnlineStatus = true;
+            if (initialized) {
+                this.setState(`${device.id}.online`, true, true);
+            }
+            this.initDeviceObjects(this.devices[device.ip]);
             this.objectHelper.processObjectQueue();
             this.connectedDevices++;
             this.setConnected(true);

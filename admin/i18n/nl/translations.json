@@ -1,12 +1,16 @@
 {
-    "Found %s devices. Added %s new devices.": "%s apparaten gevonden. %s nieuwe apparaten toegevoegd.",
-    "Found %s devices. Nothing new.": "%s apparaten gevonden. Er zijn geen nieuwe apparaten toegevoegd.",
+    "Devices": "Apparaten",
+    "Found %s devices. Added %s new devices.": "%s apparaten gevonden. Nieuwe apparaten toegevoegd.",
+    "Found %s devices. Nothing new.": "%s apparaten gevonden. Geen nieuwe apparaten toegevoegd.",
     "IP": "IP",
     "Name": "Naam",
     "No devices found": "Geen apparaten gevonden",
     "Password": "Wachtwoord",
-    "Scan devices": "Scannen op apparaten",
-    "The scan can last over one minute or even longer. Be patient...": "De scan kan meer dan een minuut of zelfs langer duren. Wees geduldig ...",
-    "The scan will take approx 5s ...": "De scan duurt ongeveer 5 seconden ...",
+    "Scan": "Scannen",
+    "Scan devices": "Scannen naar apparaten",
+    "Scan failed": "Scannen mislukt",
+    "Scan for devices": "Scannen naar apparaten",
+    "The scan can last over one minute or even longer. Be patient...": "De scan kan meer dan een minuut of zelfs langer duren. Wees geduldig…",
+    "The scan will take approx 5s ...": "De scan duurt ongeveer 5s …",
     "Username": "Gebruikersnaam"
 }
