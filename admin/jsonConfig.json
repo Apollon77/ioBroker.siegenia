@@ -1,91 +1,32 @@
 {
     "type": "panel",
+    "i18n": true,
     "items": {
         "devices": {
             "type": "table",
-            "label": {
-                "en": "Devices",
-                "de": "Geräte",
-                "ru": "Устройства",
-                "pt": "Dispositivos",
-                "nl": "Apparaten",
-                "fr": "Appareils",
-                "it": "Dispositivi",
-                "es": "Dispositivos",
-                "pl": "Urządzenia",
-                "uk": "Пристрої",
-                "zh-cn": "设备"
-            },
+            "label": "Devices",
             "items": [
                 {
                     "type": "text",
-                    "title": {
-                        "en": "IP",
-                        "de": "IP",
-                        "ru": "IP",
-                        "pt": "IP",
-                        "nl": "IP",
-                        "fr": "IP",
-                        "it": "IP",
-                        "es": "IP",
-                        "pl": "IP",
-                        "uk": "IP",
-                        "zh-cn": "IP"
-                    },
+                    "title": "IP",
                     "attr": "ip",
                     "width": "25%"
                 },
                 {
                     "type": "text",
-                    "title": {
-                        "en": "Name",
-                        "de": "Name",
-                        "ru": "Имя",
-                        "pt": "Nome",
-                        "nl": "Naam",
-                        "fr": "prénom",
-                        "it": "Nome",
-                        "es": "Nombre",
-                        "pl": "Nazwa",
-                        "uk": "Ім'я",
-                        "zh-cn": "名称"
-                    },
+                    "title": "Name",
                     "attr": "name",
                     "width": "25%"
                 },
                 {
                     "type": "text",
-                    "title": {
-                        "en": "Username",
-                        "de": "Benutzername",
-                        "ru": "Имя пользователя",
-                        "pt": "Nome de usuário",
-                        "nl": "Gebruikersnaam",
-                        "fr": "Nom d'utilisateur",
-                        "it": "Nome utente",
-                        "es": "Nombre de usuario",
-                        "pl": "Nazwa Użytkownika",
-                        "uk": "Ім'я користувача",
-                        "zh-cn": "用户名"
-                    },
+                    "title": "Username",
                     "attr": "user",
                     "width": "25%"
                 },
                 {
                     "type": "password",
-                    "title": {
-                        "en": "Password",
-                        "de": "Passwort",
-                        "ru": "Пароль",
-                        "pt": "Senha",
-                        "nl": "Wachtwoord",
-                        "fr": "Mot de passe",
-                        "it": "Parola d'ordine",
-                        "es": "Contraseña",
-                        "pl": "Hasło",
-                        "uk": "Пароль",
-                        "zh-cn": "密码"
-                    },
+                    "title": "Password",
                     "attr": "password",
                     "width": "25%",
                     "encryptedNative": true
@@ -104,60 +45,12 @@
             "jsonData": "{}",
             "useNative": true,
             "showProcess": true,
-            "label": {
-                "en": "Scan for devices",
-                "de": "Nach Geräten suchen",
-                "ru": "Сканировать устройства",
-                "pt": "Dispositivos de digitalização",
-                "nl": "Scannen naar apparaten",
-                "fr": "Appareils de numérisation",
-                "it": "Scansione dei dispositivi",
-                "es": "Escanear dispositivos",
-                "pl": "Skanuj urządzenia",
-                "uk": "Сканування на наявність пристроїв",
-                "zh-cn": "扫描装置"
-            },
+            "label": "Scan for devices",
             "icon": "search",
-            "button": {
-                "en": "Scan",
-                "de": "Suchen",
-                "ru": "Сканировать",
-                "pt": "Digitalizar",
-                "nl": "Scannen",
-                "fr": "Balayer",
-                "it": "Scansione",
-                "es": "Escanear",
-                "pl": "Skanuj",
-                "uk": "Сканувати",
-                "zh-cn": "扫描"
-            },
-            "help": {
-                "en": "The scan will take approx. 5 seconds",
-                "de": "Der Scanvorgang dauert ca. 5 Sekunden",
-                "ru": "Сканирование займет около 5 с",
-                "pt": "A digitalização demora cerca de 5s",
-                "nl": "De scan duurt ongeveer 5s",
-                "fr": "Le scan prendra environ 5 secondes",
-                "it": "La scansione richiederà circa 5 secondi",
-                "es": "El escaneo tomará aproximadamente 5s",
-                "pl": "Skanowanie zajmie około 5 sekund",
-                "uk": "Сканування займе приблизно 5 секунд",
-                "zh-cn": "扫描大约需要5秒"
-            },
+            "button": "Scan",
+            "help": "The scan will take approx 5s ...",
             "variant": "contained",
-            "error": {
-                "en": "Scan failed",
-                "de": "Scan fehlgeschlagen",
-                "ru": "Сканирование не удалось",
-                "pt": "Falha na verificação",
-                "nl": "Scannen mislukt",
-                "fr": "Échec de l'analyse",
-                "it": "Scansione fallita",
-                "es": "Falló el escaneo",
-                "pl": "Skanowanie nie powiodło się",
-                "uk": "Сканування не вдалося",
-                "zh-cn": "扫描失败"
-            },
+            "error": "Scan failed",
             "sm": 12,
             "md": 6,
             "lg": 4,
