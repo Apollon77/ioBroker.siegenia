@@ -455,6 +455,7 @@ class Siegenia extends utils.Adapter {
         this.log.debug(`init device ${device.id}`);
         device.comm = new SiegeniaDevice(options);
         device.comm.on('connected', () => {
+            currentOnlineStatus = true;
             this.objectHelper.setOrUpdateObject(device.id, {
                 type: 'device',
                 common: {
@@ -491,9 +492,16 @@ class Siegenia extends utils.Adapter {
                 '',
             );
 
-            this.initDeviceObjects(device, () => this.setState(`${device.id}.online`, currentOnlineStatus, true));
-            this.connectedDevices++;
-            this.setConnected(true);
+            this.initDeviceObjects(device, () => {
+                if (!initialized) {
+                    initialized = true;
+                    this.log.warn(`Device ${device.ip} initialized: ${currentOnlineStatus}`);
+                    this.setState(`${device.id}.online`, currentOnlineStatus, true);
+                }
+
+                this.connectedDevices++;
+                this.setConnected(true);
+            });
         });
         device.comm.on('closed', (code, reason) => {
             this.log.info(`Connection to Device ${device.ip}: CLOSED ${code} / ${reason}`);
