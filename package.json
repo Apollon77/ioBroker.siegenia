@@ -1,6 +1,6 @@
 {
   "name": "iobroker.siegenia",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "ioBroker support for Siegenia Devices",
   "author": {
     "name": "Apollon77",
@@ -41,8 +41,10 @@
   },
   "scripts": {
     "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
-    "test": "npm run test:package && npm run test:js && npm run test:integration",
+    "test:js": "mocha test/unit --exit",
+    "test": "npm run test:package && npm run test:unit && npm run test:integration",
     "lint": "npm run lint:js",
     "lint:js": "eslint",
     "release": "release-script",

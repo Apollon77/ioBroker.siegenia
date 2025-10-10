@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "siegenia",
-        "version": "1.1.1",
+        "version": "1.2.0",
         "news": {
             "1.1.1": {
                 "en": "(thost96/Apollon77) Optimize for js-controller 3.3",

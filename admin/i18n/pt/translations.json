@@ -1,12 +1,12 @@
 {
-    "Found %s devices. Added %s new devices.": "Encontrados %s dispositivos. Adicionado %s novos dispositivos.",
-    "Found %s devices. Nothing new.": "Encontrados %s dispositivos. Nada de novo.",
+    "Found %s devices. Added %s new devices.": "Found %s devices. Added %s new devices.",
+    "Found %s devices. Nothing new.": "Found %s devices. No new device were added.",
     "IP": "IP",
-    "Name": "Nome",
-    "No devices found": "Nenhum dispositivo encontrado",
-    "Password": "Senha",
-    "Scan devices": "Dispositivos de digitalização",
-    "The scan can last over one minute or even longer. Be patient...": "A varredura pode durar mais de um minuto ou até mais. Seja paciente...",
-    "The scan will take approx 5s ...": "A digitalização demora cerca de 5s ...",
-    "Username": "Nome de usuário"
+    "Name": "Name",
+    "No devices found": "No devices found",
+    "Password": "Password",
+    "Scan devices": "Scan for devices",
+    "The scan can last over one minute or even longer. Be patient...": "The scan can last over one minute or even longer. Please be patient …",
+    "The scan will take approx 5s ...": "The scan will take approx. 5 seconds …",
+    "Username": "Username"
 }

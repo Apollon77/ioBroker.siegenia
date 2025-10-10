@@ -421,7 +421,7 @@ class Siegenia extends utils.Adapter {
                 native: { ip: device.ip },
             });
             this.objectHelper.setOrUpdateObject(
-                `${device.id}.lastStatus`,
+                `${device.id}.online`,
                 {
                     type: 'state',
                     common: {

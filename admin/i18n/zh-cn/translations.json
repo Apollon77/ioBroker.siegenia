@@ -1,12 +1,12 @@
 {
-    "Found %s devices. Added %s new devices.": "找到％s个设备。添加了％s个设备。",
-    "Found %s devices. Nothing new.": "找到％s个设备。",
+    "Found %s devices. Added %s new devices.": "找到 %s 台设备。添加了 %s 个新设备。",
+    "Found %s devices. Nothing new.": "找到 %s 设备。未添加新设备。",
     "IP": "IP",
     "Name": "名称",
-    "No devices found": "找不到设备",
+    "No devices found": "未找到设备",
     "Password": "密码",
-    "Scan devices": "扫描装置",
-    "The scan can last over one minute or even longer. Be patient...": "扫描可能持续一分钟甚至更长的时间。",
-    "The scan will take approx 5s ...": "扫描大约需要5秒......",
+    "Scan devices": "扫描设备",
+    "The scan can last over one minute or even longer. Be patient...": "扫描可能会持续一分多钟甚至更长时间。请耐心等待 ...",
+    "The scan will take approx 5s ...": "扫描大约需要 5 秒钟 ...",
     "Username": "用户名"
 }
