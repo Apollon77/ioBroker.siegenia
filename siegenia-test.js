@@ -45,10 +45,12 @@ dev.on('data', (status, data, command) => {
 dev.connect();
 
 /**
- * @param err
- * @param status
- * @param data
- * @param command
+ * Logs device responses and mapped states/objects.
+ *
+ * @param {Error} err - Any error that occurred
+ * @param {string} status - The response status
+ * @param {object} data - The response data
+ * @param {string} command - The command that was executed
  */
 function logger(err, status, data, command) {
     console.log(`RESPONSE: ${command} / ${status} / ${JSON.stringify(data)}`);
@@ -58,7 +60,7 @@ function logger(err, status, data, command) {
         const objs = Mapper.mapToObjects(command, 5, data);
         console.log(`      ${JSON.stringify(objs)}`);
         for (const obj in objs) {
-            if (!objs.hasOwnProperty(obj)) {
+            if (!Object.hasOwn(objs, obj)) {
                 continue;
             }
             if (objs[obj].write === false) {

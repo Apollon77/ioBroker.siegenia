@@ -5,7 +5,9 @@ const Mapper = require('./lib/mapper.js');
 
 class Siegenia extends utils.Adapter {
     /**
-     * @param [options]
+     * Constructor for the Siegenia adapter instance.
+     *
+     * @param {Partial<ioBroker.AdapterOptions>} [options] - Adapter options
      */
     constructor(options) {
         super({
@@ -57,12 +59,12 @@ class Siegenia extends utils.Adapter {
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      *
-     * @param callback
+     * @param {() => void} callback - The callback to invoke when cleanup is complete
      */
     onUnload(callback) {
         this.setConnected(false);
         for (const ip in this.devices) {
-            if (!this.devices.hasOwnProperty(ip)) {
+            if (!Object.hasOwn(this.devices, ip)) {
                 continue;
             }
             if (this.devices[ip].comm) {
@@ -74,7 +76,7 @@ class Siegenia extends utils.Adapter {
         try {
             this.log.info('cleaned everything up...');
             callback();
-        } catch (e) {
+        } catch {
             callback();
         }
     }
@@ -82,8 +84,8 @@ class Siegenia extends utils.Adapter {
     /**
      * Is called if a subscribed object changes
      *
-     * @param id
-     * @param obj
+     * @param {string} id - The ID of the object that changed
+     * @param {ioBroker.Object | null | undefined} obj - The object definition or null if deleted
      */
     onObjectChange(id, obj) {
         if (obj) {
@@ -98,8 +100,8 @@ class Siegenia extends utils.Adapter {
     /**
      * Is called if a subscribed state changes
      *
-     * @param id
-     * @param state
+     * @param {string} id - The ID of the state that changed
+     * @param {ioBroker.State | null | undefined} state - The state value or null if deleted
      */
     onStateChange(id, state) {
         if (state) {
@@ -116,7 +118,7 @@ class Siegenia extends utils.Adapter {
      * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
      * Using this method requires "common.message" property to be set to true in io-package.json
      *
-     * @param obj
+     * @param {ioBroker.Message} obj - The message object
      */
     onMessage(obj) {
         this.log.debug(`Request: ${JSON.stringify(obj)}`);
@@ -251,7 +253,7 @@ class Siegenia extends utils.Adapter {
 
     createObjects(device, baseId, objs) {
         for (const key in objs) {
-            if (!objs.hasOwnProperty(key)) {
+            if (!Object.hasOwn(objs, key)) {
                 continue;
             }
             let onChange = null;
@@ -263,7 +265,7 @@ class Siegenia extends utils.Adapter {
                 onChange = value => {
                     value = Mapper.mapValueForWrite(key, value, native);
                     this.log.debug(`onStateChange Device ${device.ip}: ${JSON.stringify(value)}`);
-                    this.devices[device.ip].comm.setDeviceParams(value, (err, status, data) => {
+                    this.devices[device.ip].comm.setDeviceParams(value, (err, status, _data) => {
                         if (err) {
                             this.log.error(err);
                         }
@@ -373,8 +375,8 @@ class Siegenia extends utils.Adapter {
                                     },
                                 },
                                 false,
-                                value => {
-                                    this.devices[device.ip].comm.rebootDevice((err, status, data) => {
+                                _value => {
+                                    this.devices[device.ip].comm.rebootDevice((err, status, _data) => {
                                         if (err) {
                                             this.log.error(err);
                                         }
@@ -476,7 +478,7 @@ class Siegenia extends utils.Adapter {
                 const states = Mapper.mapToStates(command, this.devices[device.ip].type, data);
                 this.log.debug(`Set States for ${device.ip}: ${JSON.stringify(states)}`);
                 for (const key in states) {
-                    if (!states.hasOwnProperty(key)) {
+                    if (!Object.hasOwn(states, key)) {
                         continue;
                     }
                     this.setState(`${this.devices[device.ip].id}.params.${key}`, states[key], true);
@@ -491,7 +493,10 @@ class Siegenia extends utils.Adapter {
 if (require.main !== module) {
     // Export the constructor in compact mode
     /**
-     * @param [options]
+     * Exports the Siegenia adapter constructor in compact mode.
+     *
+     * @param {Partial<ioBroker.AdapterOptions>} [options] - Adapter options
+     * @returns {Siegenia} A new Siegenia adapter instance
      */
     module.exports = options => new Siegenia(options);
 } else {

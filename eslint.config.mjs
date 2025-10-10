@@ -1,4 +1,5 @@
 import config from '@iobroker/eslint-config';
+import globals from 'globals';
 
 export default [
     ...config,
@@ -11,6 +12,15 @@ export default [
 
             globals: {
                 systemDictionary: 'writable',
+            },
+        },
+    },
+
+    {
+        files: ['**/*.test.js', 'test/**/*.js'],
+        languageOptions: {
+            globals: {
+                ...globals.mocha,
             },
         },
     },
