@@ -470,6 +470,9 @@ class Siegenia extends utils.Adapter {
             this.setConnected(true);
         });
         device.comm.on('data', (status, data, command) => {
+            if (!this.devices[device.ip]) {
+                return;
+            }
             this.log.debug(`DATA for ${device.ip}:${command} / ${status} / ${JSON.stringify(data)}`);
             if (data) {
                 if (command === 'deviceParams') {
