@@ -1,0 +1,113 @@
+{
+    "type": "panel",
+    "items": {
+        "devices": {
+            "type": "table",
+            "label": {
+                "en": "Devices",
+                "de": "Geräte",
+                "ru": "Устройства",
+                "pt": "Dispositivos",
+                "nl": "Apparaten",
+                "fr": "Appareils",
+                "it": "Dispositivi",
+                "es": "Dispositivos",
+                "pl": "Urządzenia",
+                "uk": "Пристрої",
+                "zh-cn": "设备"
+            },
+            "items": [
+                {
+                    "type": "text",
+                    "title": {
+                        "en": "IP",
+                        "de": "IP",
+                        "ru": "IP",
+                        "pt": "IP",
+                        "nl": "IP",
+                        "fr": "IP",
+                        "it": "IP",
+                        "es": "IP",
+                        "pl": "IP",
+                        "uk": "IP",
+                        "zh-cn": "IP"
+                    },
+                    "attr": "ip",
+                    "width": "25%"
+                },
+                {
+                    "type": "text",
+                    "title": {
+                        "en": "Name",
+                        "de": "Name",
+                        "ru": "Имя",
+                        "pt": "Nome",
+                        "nl": "Naam",
+                        "fr": "prénom",
+                        "it": "Nome",
+                        "es": "Nombre",
+                        "pl": "Nazwa",
+                        "uk": "Ім'я",
+                        "zh-cn": "名称"
+                    },
+                    "attr": "name",
+                    "width": "25%"
+                },
+                {
+                    "type": "text",
+                    "title": {
+                        "en": "Username",
+                        "de": "Benutzername",
+                        "ru": "Имя пользователя",
+                        "pt": "Nome de usuário",
+                        "nl": "Gebruikersnaam",
+                        "fr": "Nom d'utilisateur",
+                        "it": "Nome utente",
+                        "es": "Nombre de usuario",
+                        "pl": "Nazwa Użytkownika",
+                        "uk": "Ім'я користувача",
+                        "zh-cn": "用户名"
+                    },
+                    "attr": "user",
+                    "width": "25%"
+                },
+                {
+                    "type": "password",
+                    "title": {
+                        "en": "Password",
+                        "de": "Passwort",
+                        "ru": "Пароль",
+                        "pt": "Senha",
+                        "nl": "Wachtwoord",
+                        "fr": "Mot de passe",
+                        "it": "Parola d'ordine",
+                        "es": "Contraseña",
+                        "pl": "Hasło",
+                        "uk": "Пароль",
+                        "zh-cn": "密码"
+                    },
+                    "attr": "password",
+                    "width": "25%",
+                    "encryptedNative": true
+                }
+            ],
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xs": 12,
+            "xl": 12,
+            "newLine": true
+        },
+        "_scanButton": {
+            "type": "custom",
+            "url": "custom/customScanButton.js",
+            "i18n": true,
+            "sm": 12,
+            "md": 6,
+            "lg": 4,
+            "xs": 12,
+            "xl": 4,
+            "newLine": true
+        }
+    }
+}

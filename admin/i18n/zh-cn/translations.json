@@ -1,4 +1,5 @@
 {
+    "Devices": "设备",
     "Found %s devices. Added %s new devices.": "找到％s个设备。添加了％s个设备。",
     "Found %s devices. Nothing new.": "找到％s个设备。",
     "IP": "IP",
@@ -6,6 +7,8 @@
     "No devices found": "找不到设备",
     "Password": "密码",
     "Scan devices": "扫描装置",
+    "Scan failed": "扫描失败",
+    "Scan for devices": "扫描装置",
     "The scan can last over one minute or even longer. Be patient...": "扫描可能持续一分钟甚至更长的时间。",
     "The scan will take approx 5s ...": "扫描大约需要5秒......",
     "Username": "用户名"

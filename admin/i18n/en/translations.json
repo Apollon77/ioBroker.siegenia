@@ -1,4 +1,5 @@
 {
+    "Devices": "Devices",
     "Found %s devices. Added %s new devices.": "Found %s devices. Added %s new devices.",
     "Found %s devices. Nothing new.": "Found %s devices. No new device were added.",
     "IP": "IP",
@@ -6,6 +7,8 @@
     "No devices found": "No devices found",
     "Password": "Password",
     "Scan devices": "Scan for devices",
+    "Scan failed": "Scan failed",
+    "Scan for devices": "Scan for devices",
     "The scan can last over one minute or even longer. Be patient...": "The scan can last over one minute or even longer. Please be patient …",
     "The scan will take approx 5s ...": "The scan will take approx. 5 seconds …",
     "Username": "Username"

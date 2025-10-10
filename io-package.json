@@ -109,6 +109,10 @@
         "materialize": true,
         "tier": 2,
         "license": "MIT",
+        "jsonConfig": true,
+        "adminUI": {
+            "config": "json"
+        },
         "dependencies": [
             {
                 "js-controller": ">=5.0.19"

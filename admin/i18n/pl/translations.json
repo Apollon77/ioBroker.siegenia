@@ -1,4 +1,5 @@
 {
+    "Devices": "Urządzenia",
     "Found %s devices. Added %s new devices.": "Znaleziono urządzenia %s. Dodano %s nowych urządzeń.",
     "Found %s devices. Nothing new.": "Znaleziono urządzenia %s. Nic nowego.",
     "IP": "IP",
@@ -6,6 +7,8 @@
     "No devices found": "Nie znaleziono urządzeń",
     "Password": "Hasło",
     "Scan devices": "Skanuj urządzenia",
+    "Scan failed": "Skanowanie nie powiodło się",
+    "Scan for devices": "Skanuj urządzenia",
     "The scan can last over one minute or even longer. Be patient...": "Skanowanie może trwać ponad minutę lub nawet dłużej. Bądź cierpliwy...",
     "The scan will take approx 5s ...": "Skanowanie zajmie około 5 sekund ...",
     "Username": "Nazwa Użytkownika"
