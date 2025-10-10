@@ -207,7 +207,7 @@ class Siegenia extends utils.Adapter {
             }
         });
 
-        setTimeout(() => {
+        this.setTimeout(() => {
             browser.stop();
             this.log.debug('Discovery finished: ' + JSON.stringify(foundIps));
             callback && callback(null, foundIps);
