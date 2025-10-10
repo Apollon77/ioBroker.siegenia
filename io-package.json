@@ -13,7 +13,8 @@
                 "it": "(thhost96/Apollon77) Ottimizza per js-controller 3.3",
                 "es": "(thost96 / Apollon77) Optimizar para js-controller 3.3",
                 "pl": "(thost96/Apollon77) Optymalizacja dla kontrolera js 3.3",
-                "zh-cn": "(thost96/Apollon77) 针对 js-controller 3.3 优化"
+                "zh-cn": "(thost96/Apollon77) 针对 js-controller 3.3 优化",
+                "uk": "(thost96/Apollon77) Оптимізовано для js-контролера 3.3"
             },
             "1.1.0": {
                 "en": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is now required at least",
@@ -25,7 +26,8 @@
                 "it": "Prevenire crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 è ora almeno richiesto",
                 "es": "Caso de prevención de accidentes (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ahora se requiere al menos",
                 "pl": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 jest teraz wymagany przynajmniej",
-                "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-SIEGENIA-1）\n现在至少需要js-controller 2.0"
+                "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-SIEGENIA-1）\n现在至少需要js-controller 2.0",
+                "uk": "Запобігання аварійних ситуацій (Sentry IOBROKER-SIEGENIA-1)\nтепер потрібен щонайменше js-контролер 2.0"
             },
             "1.0.1": {
                 "en": "update dependencies\ndisconnect device if authentication was not successful",
@@ -37,7 +39,8 @@
                 "it": "aggiornare le dipendenze\nscollegare il dispositivo se l'autenticazione non è andata a buon fine",
                 "es": "actualizar dependencias\ndesconectar el dispositivo si la autenticación no fue exitosa",
                 "pl": "zależności aktualizacji\nodłącz urządzenie, jeśli uwierzytelnianie nie powiodło się",
-                "zh-cn": "更新依赖\n如果身份验证失败，则断开设备连接"
+                "zh-cn": "更新依赖\n如果身份验证失败，则断开设备连接",
+                "uk": "оновити залежності\nвідключити пристрій, якщо автентифікація не пройшла успішно"
             },
             "1.0.0": {
                 "en": "initial release",
@@ -49,7 +52,8 @@
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
                 "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "zh-cn": "首次出版",
+                "uk": "початковий випуск"
             }
         },
         "title": "Siegenia devices",
@@ -63,7 +67,8 @@
             "it": "Dispositivi Siegenia",
             "es": "Dispositivos Siegenia",
             "pl": "Urządzenia Siegenia",
-            "zh-cn": "Siegenia设备"
+            "zh-cn": "Siegenia设备",
+            "uk": "Пристрої Siegenia"
         },
         "desc": {
             "en": "ioBroker support for Siegenia Devices",
@@ -75,7 +80,8 @@
             "it": "Supporto di ioBroker per dispositivi Siegenia",
             "es": "Soporte de ioBroker para dispositivos Siegenia",
             "pl": "Obsługa iSCroker dla urządzeń Siegenia",
-            "zh-cn": "ioBroker对Siegenia设备的支持"
+            "zh-cn": "ioBroker对Siegenia设备的支持",
+            "uk": "Підтримка ioBroker для пристроїв Siegenia"
         },
         "authors": [
             "Apollon77 <iobroker@fischer-ka.de>"
@@ -105,12 +111,12 @@
         "license": "MIT",
         "dependencies": [
             {
-                "js-controller": ">=2.0.0"
+                "js-controller": ">=5.0.19"
             }
         ],
         "globalDependencies": [
             {
-                "admin": ">=3.0.0"
+                "admin": ">=6.17.14"
             }
         ],
         "plugins": {

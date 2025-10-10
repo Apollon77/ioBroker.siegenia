@@ -1,9 +1,3 @@
-'use strict';
-
-/*
- * Created with @iobroker/create-adapter v1.8.0
- */
-
 const utils = require('@iobroker/adapter-core');
 const ObjectHelper = require('@apollon/iobroker-tools'); // Get common adapter utils
 const SiegeniaDevice = require('./lib/siegenia.js');
@@ -441,8 +435,7 @@ class Siegenia extends utils.Adapter {
     }
 }
 
-// @ts-ignore
-if (module.parent) {
+if (require.main !== module) {
     // Export the constructor in compact mode
     /**
      * @param {Partial<ioBroker.AdapterOptions>} [options={}]
@@ -450,5 +443,5 @@ if (module.parent) {
     module.exports = (options) => new Siegenia(options);
 } else {
     // otherwise start the instance directly
-    new Siegenia();
+    (() => new Siegenia())();
 }
