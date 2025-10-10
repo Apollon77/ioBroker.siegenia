@@ -4,9 +4,10 @@ const SiegeniaDevice = require('./lib/siegenia.js');
 const Mapper = require('./lib/mapper.js');
 
 class Siegenia extends utils.Adapter {
-
     /**
-     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     * Constructor for the Siegenia adapter instance.
+     *
+     * @param {Partial<ioBroker.AdapterOptions>} [options] - Adapter options
      */
     constructor(options) {
         super({
@@ -16,7 +17,7 @@ class Siegenia extends utils.Adapter {
         this.on('ready', this.onReady);
         this.on('objectChange', this.onObjectChange);
         this.on('stateChange', this.onStateChange);
-        this.on("message", this.onMessage);
+        this.on('message', this.onMessage);
         this.on('unload', this.onUnload);
         this.objectHelper = ObjectHelper.objectHelper;
         this.objectHelper.init(this);
@@ -38,15 +39,15 @@ class Siegenia extends utils.Adapter {
             if (!this.config || !this.config.devices) {
                 this.config.devices = [];
             }
-            this.log.info('Initialize ' + this.config.devices.length + ' devices');
-            this.config.devices.forEach((dev) => {
+            this.log.info(`Initialize ${this.config.devices.length} devices`);
+            this.config.devices.forEach(dev => {
                 if (dev.password) {
                     dev.password = this.decrypt(secret, dev.password);
                 }
                 dev.comm = null;
-                this.initDevice(dev, (err) => {
+                this.initDevice(dev, err => {
                     if (err) {
-                        this.log.error('Error initializing device ' + dev.ip + ': ' + err);
+                        this.log.error(`Error initializing device ${dev.ip}: ${err}`);
                         dev.comm && dev.comm.disconnect();
                     }
                 });
@@ -57,12 +58,15 @@ class Siegenia extends utils.Adapter {
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
-     * @param {() => void} callback
+     *
+     * @param {() => void} callback - The callback to invoke when cleanup is complete
      */
     onUnload(callback) {
         this.setConnected(false);
         for (const ip in this.devices) {
-            if (!this.devices.hasOwnProperty(ip)) continue;
+            if (!Object.hasOwn(this.devices, ip)) {
+                continue;
+            }
             if (this.devices[ip].comm) {
                 this.devices[ip].comm.disconnect(true);
                 this.devices[ip].comm = null;
@@ -72,15 +76,16 @@ class Siegenia extends utils.Adapter {
         try {
             this.log.info('cleaned everything up...');
             callback();
-        } catch (e) {
+        } catch {
             callback();
         }
     }
 
     /**
      * Is called if a subscribed object changes
-     * @param {string} id
-     * @param {ioBroker.Object | null | undefined} obj
+     *
+     * @param {string} id - The ID of the object that changed
+     * @param {ioBroker.Object | null | undefined} obj - The object definition or null if deleted
      */
     onObjectChange(id, obj) {
         if (obj) {
@@ -94,8 +99,9 @@ class Siegenia extends utils.Adapter {
 
     /**
      * Is called if a subscribed state changes
-     * @param {string} id
-     * @param {ioBroker.State | null | undefined} state
+     *
+     * @param {string} id - The ID of the state that changed
+     * @param {ioBroker.State | null | undefined} state - The state value or null if deleted
      */
     onStateChange(id, state) {
         if (state) {
@@ -111,19 +117,20 @@ class Siegenia extends utils.Adapter {
     /**
      * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
      * Using this method requires "common.message" property to be set to true in io-package.json
-     * @param {ioBroker.Message} obj
+     *
+     * @param {ioBroker.Message} obj - The message object
      */
     onMessage(obj) {
-        this.log.debug('Request: ' + JSON.stringify(obj));
-    	if (typeof obj === "object" && obj.command) {
-    		if (obj.command === "discover") {
+        this.log.debug(`Request: ${JSON.stringify(obj)}`);
+        if (typeof obj === 'object' && obj.command) {
+            if (obj.command === 'discover') {
                 this.discoverSiegenia(5000, (err, ips) => {
-                    this.log.debug('Discovery result: ' + JSON.stringify(ips));
+                    this.log.debug(`Discovery result: ${JSON.stringify(ips)}`);
                     // Send response in callback if required
                     this.sendTo(obj.from, obj.command, ips, obj.callback);
                 });
-    		}
-    	}
+            }
+        }
     }
 
     decrypt(key, value) {
@@ -144,33 +151,35 @@ class Siegenia extends utils.Adapter {
     getBasicData(ip, callback) {
         const options = {
             ip: ip,
-            logger: this.log.debug
+            logger: this.log.debug,
         };
-        this.log.debug('check device ' + ip);
+        this.log.debug(`check device ${ip}`);
         const dev = new SiegeniaDevice(options);
         dev.on('connected', () => {
             dev.getDeviceInfo((err, status, data) => {
                 dev.disconnect(true);
                 if (status !== 'ok') {
-                    callback && callback({ip: ip, name: ''});
+                    callback && callback({ ip: ip, name: '' });
                     callback = null;
-                }
-                else {
-                    callback && callback({ip: ip, name: data.devicename + '(' + data.devicefloor + ' ' + data.devicelocation + ')'});
+                } else {
+                    callback &&
+                        callback({
+                            ip: ip,
+                            name: `${data.devicename}(${data.devicefloor} ${data.devicelocation})`,
+                        });
                     callback = null;
                 }
             });
             dev.on('closed', (code, reason) => {
-                this.log.info('Connection to Device ' + ip + ': CLOSED ' + code + ' / ' + reason);
-                callback && callback({ip: ip, name: ''});
+                this.log.info(`Connection to Device ${ip}: CLOSED ${code} / ${reason}`);
+                callback && callback({ ip: ip, name: '' });
                 callback = null;
             });
-            dev.on('error', (error) => {
-                this.log.error('Device ' + ip + ': ERROR ' + error);
-                callback && callback({ip: ip, name: ''});
+            dev.on('error', error => {
+                this.log.error(`Device ${ip}: ERROR ${error}`);
+                callback && callback({ ip: ip, name: '' });
                 callback = null;
             });
-
         });
         dev.connect();
     }
@@ -178,7 +187,9 @@ class Siegenia extends utils.Adapter {
     discoverSiegenia(timeout, callback) {
         const foundIps = [];
 
-        if (!timeout) timeout = 5000;
+        if (!timeout) {
+            timeout = 5000;
+        }
 
         const mdns = require('mdns-js');
         mdns.excludeInterface('0.0.0.0');
@@ -190,16 +201,24 @@ class Siegenia extends utils.Adapter {
             this.log.debug('Start discovery for Siegenia devices');
         });
 
-        browser.on('update', (data) => {
-            this.log.debug('Discovery answer: ' + JSON.stringify(data));
-            if (!data.addresses || !data.addresses[0] || !data.type) return;
+        browser.on('update', data => {
+            this.log.debug(`Discovery answer: ${JSON.stringify(data)}`);
+            if (!data.addresses || !data.addresses[0] || !data.type) {
+                return;
+            }
             for (let i = 0; i < data.type.length; i++) {
                 if (data.type[i].name === 'siegenia') {
-                    this.getBasicData(data.addresses[0], (data) => {
+                    this.getBasicData(data.addresses[0], data => {
                         if (data) {
-                            if (data.name === undefined) data.name = '';
-                            if (data.user === undefined) data.user = "user";
-                            if (data.password === undefined) data.password = '0000';
+                            if (data.name === undefined) {
+                                data.name = '';
+                            }
+                            if (data.user === undefined) {
+                                data.user = 'user';
+                            }
+                            if (data.password === undefined) {
+                                data.password = '0000';
+                            }
                             foundIps.push(data);
                         }
                     });
@@ -209,7 +228,7 @@ class Siegenia extends utils.Adapter {
 
         this.setTimeout(() => {
             browser.stop();
-            this.log.debug('Discovery finished: ' + JSON.stringify(foundIps));
+            this.log.debug(`Discovery finished: ${JSON.stringify(foundIps)}`);
             callback && callback(null, foundIps);
         }, timeout);
     }
@@ -217,51 +236,63 @@ class Siegenia extends utils.Adapter {
     initObjects(device, channel, data, command) {
         let baseId = device.id;
         if (channel !== '') {
-            baseId += '.' + channel;
+            baseId += `.${channel}`;
             this.objectHelper.setOrUpdateObject(baseId, {
                 type: 'channel',
                 common: {
-                    name: (device.name || device.id) + channel.charAt(0).toUpperCase() + channel.slice(1)
-                }
+                    name: (device.name || device.id) + channel.charAt(0).toUpperCase() + channel.slice(1),
+                },
             });
         }
         baseId += '.';
 
         const objs = Mapper.mapToObjects(command, device.type, data);
-        this.log.debug('Objects for ' + device.ip + '/' + command + '/' + channel + ': ' + JSON.stringify(objs));
-        this.createObjects(device, baseId, objs)
-    };
+        this.log.debug(`Objects for ${device.ip}/${command}/${channel}: ${JSON.stringify(objs)}`);
+        this.createObjects(device, baseId, objs);
+    }
 
     createObjects(device, baseId, objs) {
         for (const key in objs) {
-            if (!objs.hasOwnProperty(key)) continue;
+            if (!Object.hasOwn(objs, key)) {
+                continue;
+            }
             let onChange = null;
             const initValue = objs[key].value;
             const native = objs[key].native;
             delete objs[key].value;
             delete objs[key].native;
             if (objs[key].write) {
-                onChange = (value) => {
+                onChange = value => {
                     value = Mapper.mapValueForWrite(key, value, native);
-                    this.log.debug('onStateChange Device ' + device.ip + ': ' + JSON.stringify(value));
-                    this.devices[device.ip].comm.setDeviceParams(value, (err, status, data) => {
+                    this.log.debug(`onStateChange Device ${device.ip}: ${JSON.stringify(value)}`);
+                    this.devices[device.ip].comm.setDeviceParams(value, (err, status, _data) => {
                         if (err) {
                             this.log.error(err);
                         }
                         if (status !== 'ok') {
-                            this.log.error('set Device Parameter Error for device ' + device.ip + ': ' + status);
+                            this.log.error(`set Device Parameter Error for device ${device.ip}: ${status}`);
                         }
-                        this.setState(device.id + '.lastStatus', status || 'Error', true);
+                        this.setState(`${device.id}.lastStatus`, status || 'Error', true);
                     });
-                }
+                };
             }
 
-            this.log.debug('Create ' + baseId + key + ': ' + JSON.stringify(objs[key]) + ' / ' + JSON.stringify(native) + ' / ' + !!onChange + ' / Value = ' + initValue);
-            this.objectHelper.setOrUpdateObject(baseId + key, {
-                type: 'state',
-                common: objs[key],
-                native: native
-            }, ['name'], initValue, onChange);
+            this.log.debug(
+                `Create ${baseId}${key}: ${JSON.stringify(
+                    objs[key],
+                )} / ${JSON.stringify(native)} / ${!!onChange} / Value = ${initValue}`,
+            );
+            this.objectHelper.setOrUpdateObject(
+                baseId + key,
+                {
+                    type: 'state',
+                    common: objs[key],
+                    native: native,
+                },
+                ['name'],
+                initValue,
+                onChange,
+            );
         }
     }
 
@@ -271,11 +302,11 @@ class Siegenia extends utils.Adapter {
                 return callback && callback(err);
             }
             if (status !== 'ok') {
-                return callback && callback(new Error('Get Device Info Error for device ' + device.ip + ': ' + status));
+                return callback && callback(new Error(`Get Device Info Error for device ${device.ip}: ${status}`));
             }
 
             if (!data.type || !Mapper.DeviceTypeMap[data.type]) {
-                return callback && callback(new Error('Unknown device type for device ' + device.ip + ': ' + data.type));
+                return callback && callback(new Error(`Unknown device type for device ${device.ip}: ${data.type}`));
             }
             device.type = data.type;
             this.initObjects(device, 'info', data, 'getDevice');
@@ -285,7 +316,7 @@ class Siegenia extends utils.Adapter {
                     return callback && callback(err);
                 }
                 if (status !== 'ok') {
-                    return callback && callback(new Error('Login Error for device ' + device.ip + ': ' + status));
+                    return callback && callback(new Error(`Login Error for device ${device.ip}: ${status}`));
                 }
                 device.token = data.token;
 
@@ -294,7 +325,9 @@ class Siegenia extends utils.Adapter {
                         return callback && callback(err);
                     }
                     if (status !== 'ok') {
-                        return callback && callback(new Error('Get Device State Error for device ' + device.ip + ': ' + status));
+                        return (
+                            callback && callback(new Error(`Get Device State Error for device ${device.ip}: ${status}`))
+                        );
                     }
 
                     this.initObjects(device, 'params', data, 'getDeviceState');
@@ -304,13 +337,16 @@ class Siegenia extends utils.Adapter {
                             return callback && callback(err);
                         }
                         if (status !== 'ok') {
-                            return callback && callback(new Error('Get Device Parameters Error for device ' + device.ip + ': ' + status));
+                            return (
+                                callback &&
+                                callback(new Error(`Get Device Parameters Error for device ${device.ip}: ${status}`))
+                            );
                         }
 
                         this.initObjects(device, 'params', data, 'getDeviceParams');
                         const specialObjs = Mapper.getSpecialDeviceObjects(device.type);
                         if (specialObjs) {
-                            this.createObjects(device, device.id + '.params.', specialObjs);
+                            this.createObjects(device, `${device.id}.params.`, specialObjs);
                         }
 
                         device.comm.getDeviceDetails((err, status, data) => {
@@ -318,31 +354,39 @@ class Siegenia extends utils.Adapter {
                                 return callback && callback(err);
                             }
                             if (status !== 'ok') {
-                                return callback && callback(new Error('Get Device Details Error for device ' + device.ip + ': ' + status));
+                                return (
+                                    callback &&
+                                    callback(new Error(`Get Device Details Error for device ${device.ip}: ${status}`))
+                                );
                             }
 
                             this.initObjects(device, 'details', data, 'getDeviceDetails');
 
-                            this.objectHelper.setOrUpdateObject(device.id + '.reboot', {
-                                type: 'state',
-                                common: {
-                                    name: 'Reboot Device',
-                                    type: 'boolean',
-                                    role: 'button',
-                                    read: false,
-                                    write: true
-                                }
-                            }, false, (value) => {
-                                this.devices[device.ip].comm.rebootDevice((err, status, data) => {
-                                    if (err) {
-                                        this.log.error(err);
-                                    }
-                                    if (status !== 'ok') {
-                                        this.log.error('Reboot Error for device ' + device.ip + ': ' + status);
-                                    }
-                                    this.setState(device.id + '.lastStatus', status || 'Error', true);
-                                });
-                            });
+                            this.objectHelper.setOrUpdateObject(
+                                `${device.id}.reboot`,
+                                {
+                                    type: 'state',
+                                    common: {
+                                        name: 'Reboot Device',
+                                        type: 'boolean',
+                                        role: 'button',
+                                        read: false,
+                                        write: true,
+                                    },
+                                },
+                                false,
+                                _value => {
+                                    this.devices[device.ip].comm.rebootDevice((err, status, _data) => {
+                                        if (err) {
+                                            this.log.error(err);
+                                        }
+                                        if (status !== 'ok') {
+                                            this.log.error(`Reboot Error for device ${device.ip}: ${status}`);
+                                        }
+                                        this.setState(`${device.id}.lastStatus`, status || 'Error', true);
+                                    });
+                                },
+                            );
 
                             this.devices[device.ip] = device;
                             this.objectHelper.processObjectQueue(callback);
@@ -355,78 +399,89 @@ class Siegenia extends utils.Adapter {
 
     initDevice(device, callback) {
         if (!device.ip.length) {
-            this.setConnected((--this.connectedDevices > 0));
+            this.setConnected(--this.connectedDevices > 0);
             return callback && callback(new Error('IP not set'));
         }
         const options = {
             ip: device.ip,
             port: device.port,
             wsProtocol: device.wsProtocol,
-            logger: this.log.debug
+            logger: this.log.debug,
         };
         device.id = device.ip.trim().replace(/\./g, '_');
 
-        this.log.debug('init device ' + device.id);
+        this.log.debug(`init device ${device.id}`);
         device.comm = new SiegeniaDevice(options);
         device.comm.on('connected', () => {
-
             this.objectHelper.setOrUpdateObject(device.id, {
                 type: 'device',
                 common: {
-                    name: device.name || 'Device ' + device.id
+                    name: device.name || `Device ${device.id}`,
                 },
-                native: {ip: device.ip}
+                native: { ip: device.ip },
             });
-            this.objectHelper.setOrUpdateObject(device.id + '.lastStatus', {
-                type: 'state',
-                common: {
-                    name: 'Device online status',
-                    type: 'boolean',
-                    role: 'indicator.reachable',
-                    read: true,
-                    write: false
-                }
-            }, true);
-            this.objectHelper.setOrUpdateObject(device.id + '.lastStatus', {
-                type: 'state',
-                common: {
-                    name: 'Status from last Device command',
-                    type: 'string',
-                    role: 'text',
-                    read: true,
-                    write: false
-                }
-            }, '');
+            this.objectHelper.setOrUpdateObject(
+                `${device.id}.lastStatus`,
+                {
+                    type: 'state',
+                    common: {
+                        name: 'Device online status',
+                        type: 'boolean',
+                        role: 'indicator.reachable',
+                        read: true,
+                        write: false,
+                    },
+                },
+                true,
+            );
+            this.objectHelper.setOrUpdateObject(
+                `${device.id}.lastStatus`,
+                {
+                    type: 'state',
+                    common: {
+                        name: 'Status from last Device command',
+                        type: 'string',
+                        role: 'text',
+                        read: true,
+                        write: false,
+                    },
+                },
+                '',
+            );
 
             this.initDeviceObjects(device, callback);
             this.connectedDevices++;
             this.setConnected(true);
         });
         device.comm.on('closed', (code, reason) => {
-            this.log.info('Connection to Device ' + device.ip + ': CLOSED ' + code + ' / ' + reason);
-            this.setState(device.id + '.online', false, true);
-            this.setConnected((--this.connectedDevices > 0));
+            this.log.info(`Connection to Device ${device.ip}: CLOSED ${code} / ${reason}`);
+            this.setState(`${device.id}.online`, false, true);
+            this.setConnected(--this.connectedDevices > 0);
         });
-        device.comm.on('error', (error) => {
-            this.log.error('Device ' + device.ip + ': ERROR ' + error);
+        device.comm.on('error', error => {
+            this.log.error(`Device ${device.ip}: ERROR ${error}`);
         });
         device.comm.on('reconnected', () => {
-            this.log.info('Connection to Device ' + device.ip + ': RECONNECTED');
-            this.setState(device.id + '.online', true, true);
+            this.log.info(`Connection to Device ${device.ip}: RECONNECTED`);
+            this.setState(`${device.id}.online`, true, true);
             this.initDeviceObjects(this.devices[device.ip], callback);
             this.objectHelper.processObjectQueue();
             this.connectedDevices++;
             this.setConnected(true);
         });
         device.comm.on('data', (status, data, command) => {
-            this.log.debug('DATA for ' + device.ip + ':' + command + ' / ' + status + ' / ' + JSON.stringify(data));
+            this.log.debug(`DATA for ${device.ip}:${command} / ${status} / ${JSON.stringify(data)}`);
             if (data) {
-                if (command === 'deviceParams') command = 'getDeviceParams';
+                if (command === 'deviceParams') {
+                    command = 'getDeviceParams';
+                }
                 const states = Mapper.mapToStates(command, this.devices[device.ip].type, data);
-                this.log.debug('Set States for ' + device.ip + ': ' + JSON.stringify(states));
+                this.log.debug(`Set States for ${device.ip}: ${JSON.stringify(states)}`);
                 for (const key in states) {
-                    if (!states.hasOwnProperty(key)) continue;
-                    this.setState(this.devices[device.ip].id + '.params.' + key, states[key], true);
+                    if (!Object.hasOwn(states, key)) {
+                        continue;
+                    }
+                    this.setState(`${this.devices[device.ip].id}.params.${key}`, states[key], true);
                 }
             }
         });
@@ -438,9 +493,12 @@ class Siegenia extends utils.Adapter {
 if (require.main !== module) {
     // Export the constructor in compact mode
     /**
-     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     * Exports the Siegenia adapter constructor in compact mode.
+     *
+     * @param {Partial<ioBroker.AdapterOptions>} [options] - Adapter options
+     * @returns {Siegenia} A new Siegenia adapter instance
      */
-    module.exports = (options) => new Siegenia(options);
+    module.exports = options => new Siegenia(options);
 } else {
     // otherwise start the instance directly
     (() => new Siegenia())();
