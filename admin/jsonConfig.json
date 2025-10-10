@@ -42,7 +42,7 @@
         "_scanButton": {
             "type": "sendto",
             "command": "discover",
-            "jsonData": "{}",
+            "jsonData": "{ \"devices\": ${JSON.stringify(data.devices)} }",
             "useNative": true,
             "showProcess": true,
             "label": "Scan for devices",
