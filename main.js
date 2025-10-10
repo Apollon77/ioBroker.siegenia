@@ -124,10 +124,49 @@ class Siegenia extends utils.Adapter {
         this.log.debug(`Request: ${JSON.stringify(obj)}`);
         if (typeof obj === 'object' && obj.command) {
             if (obj.command === 'discover') {
-                this.discoverSiegenia(5000, (err, ips) => {
-                    this.log.debug(`Discovery result: ${JSON.stringify(ips)}`);
-                    // Send response in callback if required
-                    this.sendTo(obj.from, obj.command, ips, obj.callback);
+                this.discoverSiegenia(5000, (err, discoveredDevices) => {
+                    this.log.debug(`Discovery result: ${JSON.stringify(discoveredDevices)}`);
+
+                    if (err) {
+                        this.sendTo(obj.from, obj.command, { error: err.message }, obj.callback);
+                        return;
+                    }
+
+                    // When using sendto with useNative, merge discovered devices with existing ones
+                    const currentDevices = obj.message?.devices || [];
+                    let added = 0;
+                    const totalFound = discoveredDevices ? discoveredDevices.length : 0;
+
+                    if (discoveredDevices && Array.isArray(discoveredDevices)) {
+                        for (const newDevice of discoveredDevices) {
+                            const exists = currentDevices.find(d => d.ip === newDevice.ip);
+                            if (!exists) {
+                                currentDevices.push(newDevice);
+                                added++;
+                            }
+                        }
+                    }
+
+                    // Prepare result message
+                    let resultMsg;
+                    if (added > 0) {
+                        resultMsg = `Found ${totalFound} devices. Added ${added} new devices.`;
+                    } else if (totalFound > 0) {
+                        resultMsg = `Found ${totalFound} devices. Nothing new.`;
+                    } else {
+                        resultMsg = 'No devices found';
+                    }
+
+                    // Send response with updated devices array and result message
+                    this.sendTo(
+                        obj.from,
+                        obj.command,
+                        {
+                            result: resultMsg,
+                            native: { devices: currentDevices },
+                        },
+                        obj.callback,
+                    );
                 });
             }
         }
