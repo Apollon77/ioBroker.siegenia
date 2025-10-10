@@ -36,7 +36,15 @@
             $('.table-button-scan').addClass('disabled');
             showToast(null, _('The scan will take approx 5s ...'));
             $('.progress-bar').show();
-            sendTo(null, 'discover', null, function (list) {
+            sendTo(null, 'discover', null, function (data) {
+                var list = [];
+                if (data) {
+                    if (data.error) {
+                        showToast('error', _('Cannot scan: %s', data.error));
+                    } else if (data.native && data.native.devices) {
+                        list = data.native.devices;
+                    }
+                }
                 $('.table-button-scan').removeClass('disabled');
                 $('.progress-bar').hide();
 
