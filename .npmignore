@@ -29,3 +29,5 @@ siegenia-test.js
 ws-simulator.js
 tsconfig.json
 admin/tsconfig.json
+*.pdf
+.claude/
