@@ -40,14 +40,14 @@
             "newLine": true
         },
         "_scanButton": {
-            "type": "sendto",
+            "type": "sendTo",
             "command": "discover",
             "jsonData": "{ \"devices\": ${JSON.stringify(data.devices)} }",
             "useNative": true,
             "showProcess": true,
             "label": "Scan for devices",
             "icon": "search",
-            "button": "Scan",
+            "button": true,
             "help": "The scan will take approx 5s ...",
             "variant": "contained",
             "error": "Scan failed",

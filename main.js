@@ -436,10 +436,13 @@ class Siegenia extends utils.Adapter {
         });
     }
 
-    initDevice(device, callback) {
+    initDevice(device) {
+        let currentOnlineStatus = false;
+        let initialized = false;
         if (!device.ip.length) {
             this.setConnected(--this.connectedDevices > 0);
-            return callback && callback(new Error('IP not set'));
+            this.log.warn('No IP address configured for device');
+            return;
         }
         const options = {
             ip: device.ip,
@@ -488,13 +491,16 @@ class Siegenia extends utils.Adapter {
                 '',
             );
 
-            this.initDeviceObjects(device, callback);
+            this.initDeviceObjects(device, () => this.setState(`${device.id}.online`, currentOnlineStatus, true));
             this.connectedDevices++;
             this.setConnected(true);
         });
         device.comm.on('closed', (code, reason) => {
             this.log.info(`Connection to Device ${device.ip}: CLOSED ${code} / ${reason}`);
-            this.setState(`${device.id}.online`, false, true);
+            currentOnlineStatus = false;
+            if (initialized) {
+                this.setState(`${device.id}.online`, false, true);
+            }
             this.setConnected(--this.connectedDevices > 0);
         });
         device.comm.on('error', error => {
@@ -502,8 +508,11 @@ class Siegenia extends utils.Adapter {
         });
         device.comm.on('reconnected', () => {
             this.log.info(`Connection to Device ${device.ip}: RECONNECTED`);
-            this.setState(`${device.id}.online`, true, true);
-            this.initDeviceObjects(this.devices[device.ip], callback);
+            currentOnlineStatus = true;
+            if (initialized) {
+                this.setState(`${device.id}.online`, true, true);
+            }
+            this.initDeviceObjects(this.devices[device.ip]);
             this.objectHelper.processObjectQueue();
             this.connectedDevices++;
             this.setConnected(true);
