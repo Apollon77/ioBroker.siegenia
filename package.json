@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.3.2",
-    "@apollon/iobroker-tools": "^0.2.1",
+    "@apollon/iobroker-tools": "^0.3.0",
     "ws": "^8.18.3",
     "mdns-js": "^1.0.3"
   },
