@@ -87,10 +87,8 @@
             "Apollon77 <iobroker@fischer-ka.de>"
         ],
         "keywords": [
-            "ioBroker",
             "Siegenia",
             "Air flow",
-            "home automation",
             "climate control"
         ],
         "platform": "Javascript/Node.js",
@@ -101,7 +99,6 @@
         "loglevel": "info",
         "mode": "daemon",
         "messagebox": true,
-        "subscribe": "messagebox",
         "type": "climate-control",
         "connectionType": "local",
         "dataSource": "push",
