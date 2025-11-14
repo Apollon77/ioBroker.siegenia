@@ -1,168 +1,181 @@
 {
-    "common": {
-        "name": "siegenia",
-        "version": "1.2.0",
-        "news": {
-            "1.1.1": {
-                "en": "(thost96/Apollon77) Optimize for js-controller 3.3",
-                "de": "(thost96/Apollon77) Optimieren für js-Controller 3.3",
-                "ru": "(thost96 / Apollon77) Оптимизация для js-контроллера 3.3",
-                "pt": "(thost96 / Apollon77) Otimize para js-controller 3.3",
-                "nl": "(thost96/Apollon77) Optimaliseren voor js-controller 3.3",
-                "fr": "(thost96/Apollon77) Optimiser pour js-controller 3.3",
-                "it": "(thhost96/Apollon77) Ottimizza per js-controller 3.3",
-                "es": "(thost96 / Apollon77) Optimizar para js-controller 3.3",
-                "pl": "(thost96/Apollon77) Optymalizacja dla kontrolera js 3.3",
-                "zh-cn": "(thost96/Apollon77) 针对 js-controller 3.3 优化",
-                "uk": "(thost96/Apollon77) Оптимізовано для js-контролера 3.3"
-            },
-            "1.1.0": {
-                "en": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is now required at least",
-                "de": "Absturz verhindern (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ist jetzt mindestens erforderlich",
-                "ru": "Случай предотвращения аварии (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 теперь требуется как минимум",
-                "pt": "Prevenir caso de travamento (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 agora é necessário pelo menos",
-                "nl": "Voorkom een crashgeval (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is nu minimaal vereist",
-                "fr": "Prévenir les cas de crash (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 est maintenant requis au moins",
-                "it": "Prevenire crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 è ora almeno richiesto",
-                "es": "Caso de prevención de accidentes (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ahora se requiere al menos",
-                "pl": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 jest teraz wymagany przynajmniej",
-                "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-SIEGENIA-1）\n现在至少需要js-controller 2.0",
-                "uk": "Запобігання аварійних ситуацій (Sentry IOBROKER-SIEGENIA-1)\nтепер потрібен щонайменше js-контролер 2.0"
-            },
-            "1.0.1": {
-                "en": "update dependencies\ndisconnect device if authentication was not successful",
-                "de": "Abhängigkeiten aktualisieren\nTrennen Sie das Gerät, wenn die Authentifizierung nicht erfolgreich war",
-                "ru": "обновить зависимости\nотключите устройство, если аутентификация не удалась",
-                "pt": "atualizar dependências\ndesconecte o dispositivo se a autenticação não for bem-sucedida",
-                "nl": "update afhankelijkheden\nkoppel het apparaat los als de authenticatie niet is gelukt",
-                "fr": "mettre à jour les dépendances\ndéconnecter l'appareil si l'authentification a échoué",
-                "it": "aggiornare le dipendenze\nscollegare il dispositivo se l'autenticazione non è andata a buon fine",
-                "es": "actualizar dependencias\ndesconectar el dispositivo si la autenticación no fue exitosa",
-                "pl": "zależności aktualizacji\nodłącz urządzenie, jeśli uwierzytelnianie nie powiodło się",
-                "zh-cn": "更新依赖\n如果身份验证失败，则断开设备连接",
-                "uk": "оновити залежності\nвідключити пристрій, якщо автентифікація не пройшла успішно"
-            },
-            "1.0.0": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版",
-                "uk": "початковий випуск"
-            }
-        },
-        "title": "Siegenia devices",
-        "titleLang": {
-            "en": "Siegenia devices",
-            "de": "Siegenia-Geräte",
-            "ru": "Устройства Siegenia",
-            "pt": "Dispositivos Siegenia",
-            "nl": "Siegenia-apparaten",
-            "fr": "Appareils Siegenia",
-            "it": "Dispositivi Siegenia",
-            "es": "Dispositivos Siegenia",
-            "pl": "Urządzenia Siegenia",
-            "zh-cn": "Siegenia设备",
-            "uk": "Пристрої Siegenia"
-        },
-        "desc": {
-            "en": "ioBroker support for Siegenia Devices",
-            "de": "ioBroker-Unterstützung für Siegenia-Geräte",
-            "ru": "Поддержка ioBroker для устройств Siegenia",
-            "pt": "Suporte ioBroker para Siegenia Devices",
-            "nl": "ioBroker-ondersteuning voor Siegenia-apparaten",
-            "fr": "Prise en charge d'ioBroker pour les périphériques Siegenia",
-            "it": "Supporto di ioBroker per dispositivi Siegenia",
-            "es": "Soporte de ioBroker para dispositivos Siegenia",
-            "pl": "Obsługa iSCroker dla urządzeń Siegenia",
-            "zh-cn": "ioBroker对Siegenia设备的支持",
-            "uk": "Підтримка ioBroker для пристроїв Siegenia"
-        },
-        "authors": [
-            "Apollon77 <iobroker@fischer-ka.de>"
-        ],
-        "keywords": [
-            "Siegenia",
-            "Air flow",
-            "climate control"
-        ],
-        "platform": "Javascript/Node.js",
-        "icon": "siegenia.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.siegenia/master/admin/siegenia.png",
-        "readme": "https://github.com/Apollon77/ioBroker.siegenia/blob/master/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "messagebox": true,
-        "type": "climate-control",
-        "connectionType": "local",
-        "dataSource": "push",
-        "compact": true,
-        "materialize": true,
-        "tier": 2,
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=5.0.19"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=6.17.14"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://9bed0b2547c646b98aeeda8aec72ab4c@sentry.iobroker.net/110",
-                "pathWhitelist": [
-                    "@apollon"
-                ],
-                "errorBlacklist": [
-                    "SyntaxError"
-                ]
-            }
-        }
+  "common": {
+    "name": "siegenia",
+    "version": "1.2.1",
+    "news": {
+      "1.2.1": {
+        "en": "Add support for enOcean Converter Module, VT Upgrade, DRIVE CL, and AEROPLUS",
+        "de": "Unterstützung für enOcean Converter Module, VT Upgrade, DRIVE CL und AEROPLUS hinzufügen",
+        "ru": "Добавить поддержку модуля преобразователя enOcean, обновления VT, DRIVE CL и AEROPLUS",
+        "pt": "Adicionar suporte para o módulo de conversor enOcean, atualização de VT, DRIVE CL e AEROPLUS",
+        "nl": "Voeg ondersteuning toe voor enOcean Converter Module, VT Upgrade, DRIVE CL en AEROPLUS",
+        "fr": "Ajouter le support pour le module de conversion enOcean, la mise à niveau VT, DRIVE CL et AEROPLUS",
+        "it": "Aggiungi supporto per modulo di conversione enOcean, aggiornamento VT, CL DRIVE e AEROPLUS",
+        "es": "Añadir soporte para enOcean Converter Module, VT Upgrade, DRIVE CL y AEROPLUS",
+        "pl": "Dodaj wsparcie dla EnOcean Converter Module, VT Upgrade, DRIVE CL i AEROPLUS",
+        "uk": "Додавання підтримки модуля конвертера enOcean, VT оновлення, DRIVE CL та AEROPLUS",
+        "zh-cn": "添加对 enOcean 转换器模块、 VT 升级、 DRIVE CL 和 AEROPLUS 的支持"
+      },
+      "1.1.1": {
+        "en": "(thost96/Apollon77) Optimize for js-controller 3.3",
+        "de": "(thost96/Apollon77) Optimieren für js-Controller 3.3",
+        "ru": "(thost96 / Apollon77) Оптимизация для js-контроллера 3.3",
+        "pt": "(thost96 / Apollon77) Otimize para js-controller 3.3",
+        "nl": "(thost96/Apollon77) Optimaliseren voor js-controller 3.3",
+        "fr": "(thost96/Apollon77) Optimiser pour js-controller 3.3",
+        "it": "(thhost96/Apollon77) Ottimizza per js-controller 3.3",
+        "es": "(thost96 / Apollon77) Optimizar para js-controller 3.3",
+        "pl": "(thost96/Apollon77) Optymalizacja dla kontrolera js 3.3",
+        "zh-cn": "(thost96/Apollon77) 针对 js-controller 3.3 优化",
+        "uk": "(thost96/Apollon77) Оптимізовано для js-контролера 3.3"
+      },
+      "1.1.0": {
+        "en": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is now required at least",
+        "de": "Absturz verhindern (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ist jetzt mindestens erforderlich",
+        "ru": "Случай предотвращения аварии (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 теперь требуется как минимум",
+        "pt": "Prevenir caso de travamento (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 agora é necessário pelo menos",
+        "nl": "Voorkom een crashgeval (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 is nu minimaal vereist",
+        "fr": "Prévenir les cas de crash (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 est maintenant requis au moins",
+        "it": "Prevenire crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 è ora almeno richiesto",
+        "es": "Caso de prevención de accidentes (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 ahora se requiere al menos",
+        "pl": "Prevent crash case (Sentry IOBROKER-SIEGENIA-1)\njs-controller 2.0 jest teraz wymagany przynajmniej",
+        "zh-cn": "防止发生崩溃情况（Sentry IOBROKER-SIEGENIA-1）\n现在至少需要js-controller 2.0",
+        "uk": "Запобігання аварійних ситуацій (Sentry IOBROKER-SIEGENIA-1)\nтепер потрібен щонайменше js-контролер 2.0"
+      },
+      "1.0.1": {
+        "en": "update dependencies\ndisconnect device if authentication was not successful",
+        "de": "Abhängigkeiten aktualisieren\nTrennen Sie das Gerät, wenn die Authentifizierung nicht erfolgreich war",
+        "ru": "обновить зависимости\nотключите устройство, если аутентификация не удалась",
+        "pt": "atualizar dependências\ndesconecte o dispositivo se a autenticação não for bem-sucedida",
+        "nl": "update afhankelijkheden\nkoppel het apparaat los als de authenticatie niet is gelukt",
+        "fr": "mettre à jour les dépendances\ndéconnecter l'appareil si l'authentification a échoué",
+        "it": "aggiornare le dipendenze\nscollegare il dispositivo se l'autenticazione non è andata a buon fine",
+        "es": "actualizar dependencias\ndesconectar el dispositivo si la autenticación no fue exitosa",
+        "pl": "zależności aktualizacji\nodłącz urządzenie, jeśli uwierzytelnianie nie powiodło się",
+        "zh-cn": "更新依赖\n如果身份验证失败，则断开设备连接",
+        "uk": "оновити залежності\nвідключити пристрій, якщо автентифікація не пройшла успішно"
+      },
+      "1.0.0": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版",
+        "uk": "початковий випуск"
+      }
     },
-    "native": {
-        "devices": [
-            {
-                "ip": "127.0.0.1",
-                "name": "Test",
-                "user": "",
-                "password": ""
-            }
+    "title": "Siegenia devices",
+    "titleLang": {
+      "en": "Siegenia devices",
+      "de": "Siegenia-Geräte",
+      "ru": "Устройства Siegenia",
+      "pt": "Dispositivos Siegenia",
+      "nl": "Siegenia-apparaten",
+      "fr": "Appareils Siegenia",
+      "it": "Dispositivi Siegenia",
+      "es": "Dispositivos Siegenia",
+      "pl": "Urządzenia Siegenia",
+      "zh-cn": "Siegenia设备",
+      "uk": "Пристрої Siegenia"
+    },
+    "desc": {
+      "en": "ioBroker support for Siegenia Devices",
+      "de": "ioBroker-Unterstützung für Siegenia-Geräte",
+      "ru": "Поддержка ioBroker для устройств Siegenia",
+      "pt": "Suporte ioBroker para Siegenia Devices",
+      "nl": "ioBroker-ondersteuning voor Siegenia-apparaten",
+      "fr": "Prise en charge d'ioBroker pour les périphériques Siegenia",
+      "it": "Supporto di ioBroker per dispositivi Siegenia",
+      "es": "Soporte de ioBroker para dispositivos Siegenia",
+      "pl": "Obsługa iSCroker dla urządzeń Siegenia",
+      "zh-cn": "ioBroker对Siegenia设备的支持",
+      "uk": "Підтримка ioBroker для пристроїв Siegenia"
+    },
+    "authors": [
+      "Apollon77 <iobroker@fischer-ka.de>"
+    ],
+    "keywords": [
+      "Siegenia",
+      "Air flow",
+      "climate control"
+    ],
+    "platform": "Javascript/Node.js",
+    "icon": "siegenia.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/Apollon77/ioBroker.siegenia/master/admin/siegenia.png",
+    "readme": "https://github.com/Apollon77/ioBroker.siegenia/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "messagebox": true,
+    "type": "climate-control",
+    "connectionType": "local",
+    "dataSource": "push",
+    "compact": true,
+    "materialize": true,
+    "tier": 2,
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=6.17.14"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://9bed0b2547c646b98aeeda8aec72ab4c@sentry.iobroker.net/110",
+        "pathWhitelist": [
+          "@apollon"
+        ],
+        "errorBlacklist": [
+          "SyntaxError"
         ]
-    },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "If connected to Siegenia Devices",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+      }
+    }
+  },
+  "native": {
+    "devices": [
+      {
+        "ip": "127.0.0.1",
+        "name": "Test",
+        "user": "",
+        "password": ""
+      }
     ]
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "If connected to Siegenia Devices",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

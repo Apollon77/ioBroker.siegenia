@@ -1,6 +1,6 @@
 {
   "name": "iobroker.siegenia",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ioBroker support for Siegenia Devices",
   "author": {
     "name": "Apollon77",
