@@ -35,7 +35,7 @@
   },
   "main": "main.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "test:package": "mocha test/package --exit",
