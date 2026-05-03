@@ -58,6 +58,8 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 ### 1.0.0
 * (Apollon77) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
