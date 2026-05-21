@@ -41,6 +41,10 @@ Timers and other more complex data are shown by the adapter, but can be changed 
 
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 1.2.1 (2025-11-14)
 * (@Apollon77) Add support for enOcean Converter Module, VT Upgrade, DRIVE CL, and AEROPLUS
 
